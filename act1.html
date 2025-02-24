@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
-<meta name="author" content="Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL">
+<meta name="author" content="Desarrollo de Aplicaciones Híbridas&#8201;&#8212;&#8201;Máster TAII&#8201;&#8212;&#8201;UAL">
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-<title>Desarrollo de Aplicaciones Híbridas</title>
+<title>Navegación y routing en aplicaciones Ionic</title>
 <style>
 @import url(http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.css);
 /* normalize.css v2.1.1 | MIT License | git.io/normalize */
@@ -641,65 +641,989 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Desarrollo de Aplicaciones Híbridas</h1>
+<h1>Navegación y routing en aplicaciones Ionic</h1>
 <div class="details">
-<span id="author" class="author">Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL</span><br>
+<span id="author" class="author">Desarrollo de Aplicaciones Híbridas&#8201;&#8212;&#8201;Máster TAII&#8201;&#8212;&#8201;UAL</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Tabla de contenidos</div>
 <ul class="sectlevel1">
-<li><a href="#_actividades">Actividades</a>
+<li><a href="#_tipos_de_navegación">1. Tipos de navegación</a>
 <ul class="sectlevel2">
-<li><a href="#_actividad_0_desarrollo_de_una_aplicación_híbrida_con_ionic">Actividad 0 - Desarrollo de una aplicación híbrida con Ionic</a></li>
-<li><a href="#_actividad_1_navegación_y_routing_en_aplicaciones_ionic">Actividad 1 - Navegación y routing en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_2_integración_con_servicios_web_en_aplicaciones_ionic">Actividad 2 - Integración con servicios web en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_3_uso_de_funciones_nativas_en_aplicaciones_ionic">Actividad 3 - Uso de funciones nativas en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_4_almacenamiento_y_recuperación_de_datos_en_aplicaciones_ionic">Actividad 4 - Almacenamiento y recuperación de datos en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_5_pruebas_en_aplicaciones_ionic">Actividad 5 - Pruebas en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_6_despliegue_de_una_aplicación_híbrida_en_android">Actividad 6 - Despliegue de una aplicación híbrida en Android</a></li>
+<li><a href="#_navcontroller">1.1. NavController</a></li>
+<li><a href="#_angular_router_routerlink">1.2. Angular Router: RouterLink</a></li>
+<li><a href="#_angular_router_navigate">1.3. Angular Router: Navigate</a></li>
 </ul>
 </li>
+<li><a href="#_ejercicio_creación_de_una_aplicación_ionic_con_opciones_de_navegación">2. Ejercicio: Creación de una aplicación Ionic con opciones de navegación</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_actividades">Actividades</h2>
+<h2 id="_tipos_de_navegación">1. Tipos de navegación</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_actividad_0_desarrollo_de_una_aplicación_híbrida_con_ionic"><a href="https://ualdah.github.io/act0.html">Actividad 0 - Desarrollo de una aplicación híbrida con Ionic</a></h3>
-
+<div class="paragraph">
+<p>En Ionic, tenemos distintas alternativas para realizar navegación entre páginas. En las siguientes subsecciones se describen los principales mecanismos.</p>
 </div>
 <div class="sect2">
-<h3 id="_actividad_1_navegación_y_routing_en_aplicaciones_ionic"><a href="https://ualdah.github.io/act1.html">Actividad 1 - Navegación y routing en aplicaciones Ionic</a></h3>
+<h3 id="_navcontroller">1.1. NavController</h3>
+<div class="paragraph">
+<p>Para analizar el comportamiento del uso del NavController, creamos una aplicación Ionic vacía:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ionic start navApp blank --type=angular</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Seleccionaremos la opción por defecto crear la aplicación haciendo uso de <code>NgModules</code>.</p>
+</div>
+<div class="paragraph">
+<p>Ejecutamos la aplicación para ver su comportamiento:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ cd navApp
+$ ionic serve</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El siguiente paso es crear una nueva página a la que poder acceder desde la página <code>home</code> creada por defecto.</p>
+</div>
+<div class="paragraph">
+<p>Para crear una nueva página, ejecutamos el siguiente comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ionic generate page newPage</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+En lugar de <code>generate</code>, podemos escribir <code>g</code> únicamente. Ionic CLI, al igual que Angular CLI, ofrecen atajos para los diferentes comandos de su interfaz.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Como resultado, dentro de la carpeta <code>new-page</code> se crea un componente de tipo página que está formado por los sguientes archivos:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>new-page-routing.module.ts</code></p>
+</li>
+<li>
+<p><code>new-page.module.ts</code></p>
+</li>
+<li>
+<p><code>new-page.page.html</code></p>
+</li>
+<li>
+<p><code>new-page.page.scss</code></p>
+</li>
+<li>
+<p><code>new-page.page.spec.ts</code></p>
+</li>
+<li>
+<p><code>new-page.page.ts</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Aunque el nombre introducido para el componente de tipo página era <code>newPage</code>, Ionic CLI lo cambia automáticamente para cumplir con las restricciones de nombre establecidas (ver documentación de Angular en el siguiente <a href="https://angular.dev/style-guide#general-naming-guidelines">enlace</a>).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Si abrimos el archivo <code>app-routing.module.ts</code>, vemos que automáticamente se ha creado una nueva entrada las direcciones o rutas gestionadas por el <code>RouterModule</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>app-routing.module.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  {
+    path: 'home',
+    loadChildren: () =&gt; import('./home/home.module').then( m =&gt; m.HomePageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'new-page', <i class="conum" data-value="1"></i><b>(1)</b>
+    loadChildren: () =&gt; import('./new-page/new-page.module').then( m =&gt; m.NewPagePageModule)
+  },
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Nueva ruta gestionada por el enrutador de la aplicación para acceder a la página <code>new-page</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Modificaremos el componente <code>home</code> para que incluya un botón que nos permita navegar a la nueva página. Para ello, editamos el archivo <code>home.page.html</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ion-header [translucent]="true"&gt;
+  &lt;ion-toolbar&gt;
+    &lt;ion-title&gt;
+      Blank
+    &lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content [fullscreen]="true"&gt;
+  &lt;ion-header collapse="condense"&gt;
+    &lt;ion-toolbar&gt;
+      &lt;ion-title size="large"&gt;Blank&lt;/ion-title&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-header&gt;
+
+  &lt;div id="container"&gt;
+
+    &lt;ion-button (click)="goToNewPageNavCtrl()"&gt;Go to new page (NavController)&lt;/ion-button&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+
+  &lt;/div&gt;
+&lt;/ion-content&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Botón que ejecuta el método <code>goToNewPageNavCtrl()</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Modificaremos el componente <code>home</code> para que defina un comportamiento para dicho método <code>goToNewPageNavCtrl()</code>. Para ello, editamos el archivo <code>home.page.ts</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  standalone: false, <i class="conum" data-value="5"></i><b>(5)</b>
+})
+export class HomePage {
+
+  constructor(private navCtrl: NavController) {} <i class="conum" data-value="2"></i><b>(2)</b>
+
+  goToNewPageNavCtrl() { <i class="conum" data-value="3"></i><b>(3)</b>
+    this.navCtrl.navigateForward("/new-page"); <i class="conum" data-value="4"></i><b>(4)</b>
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Importación de la clase <code>NavController</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Inyección del <code>NavController</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Declaración del método <code>goToNewPageNavCtrl()</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Uso el método <code>navigateForward</code> para acceder a la página <code>new-page</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>El componente está establecido como que no es <em>standalone</em> (ver <a href="https://angular.dev/guide/components">enlace</a>), y que será gestionado a través de <em>NgModules</em> (ver <a href="https://angular.dev/guide/ngmodules/overview">enlace</a>)</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+La introducción por parámetro del <code>NavController</code> en el constructor del componente <code>home</code> se realiza para poder hacer uso de un objeto cuyo tipo será dicha clase (ver documentación de inyección de dependencias en Angular en el siguiente <a href="https://angular.dev/guide/di/dependency-injection">enlace</a>)
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Para más información sobre el uso de NavController, se puede consultar la documentación del siguiente <a href="https://ionicframework.com/docs/v3/api/navigation/NavController/">enlace</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Debemos recordar que si hacemos uso de <em>NgModules</em> en lugar de componentes <em>standalone</em>, debemos asegurarnos de que hemos indicado de forma correcta que las nuevas páginas o componentes que creamos están descritos como no <em>standalone</em>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">@Component({
+  selector: 'app-new-page',
+  templateUrl: './new-page.page.html',
+  styleUrls: ['./new-page.page.scss'],
+  standalone: false, <i class="conum" data-value="1"></i><b>(1)</b>
+})</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Se debe indicar de forma explícita que el componente no es <em>standalone</em> (ver <a href="https://angular.dev/guide/components#imports-in-the-component-decorator">enlace</a>)</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para poder volver a la página <code>home</code>, introduciremos un botón en la nueva página <code>new-page</code>. Para ello, editamos el archivo <code>new-page.page.html</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ion-header&gt;
+  &lt;ion-toolbar&gt;
+
+    &lt;ion-buttons slot="start"&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+      &lt;ion-back-button&gt;&lt;/ion-back-button&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;/ion-buttons&gt;
+
+    &lt;ion-title&gt;newPage&lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content&gt;
+
+&lt;/ion-content&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Contenedor de botones</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Botón para volver a la dirección anterior</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+El componente <code>&lt;ion-buttons&gt;</code> es un contenedor que debe ser posicionado mediante la propiedad <code>slot</code>. En este caso, el valor <code>start</code> indica que se posicione al inicio (izquierda en LTR y derecha en RTL). Para más información, podemos acceder al siguiente <a href="https://ionicframework.com/docs/api/buttons">enlace</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Comprobaremos el funcionamiento derivado de las modificaciones introducidas.</p>
+</div>
+<div class="paragraph">
+<p>A continuación, vamos a modificar la aplicación para poder enviar información de una página a otra. Para ello, debemos modificar la estructura de la ruta para acceder a la nueva página en el archivo <code>app-routing.module.ts</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>app-routing.module.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'home',
+    loadChildren: () =&gt; import('./home/home.module').then( m =&gt; m.HomePageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'new-page/:elementid', <i class="conum" data-value="1"></i><b>(1)</b>
+    loadChildren: () =&gt; import('./new-page/new-page.module').then( m =&gt; m.NewPagePageModule)
+  },
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Identificador del elemento que ahora forma parte de la ruta</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>También debemos modificar el componente <code>new-page</code> para gestionar las acciones correspondientes a la información que recibe a través de la ruta. En este caso, únicamente mostraremos el texto en la interfaz. Para ello, modificamos el archivo <code>new-page.page.ts</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+@Component({
+  selector: 'app-new-page',
+  templateUrl: './new-page.page.html',
+  styleUrls: ['./new-page.page.scss'],
+  standalone: false,
+})
+export class NewPagePage implements OnInit {
+
+  args: string | null = null;
+
+  constructor(private activateRoute: ActivatedRoute) { } <i class="conum" data-value="2"></i><b>(2)</b>
+
+  ngOnInit() { <i class="conum" data-value="3"></i><b>(3)</b>
+
+    this.args = this.activateRoute.snapshot.paramMap.get("elementid"); <i class="conum" data-value="4"></i><b>(4)</b>
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Importación de la clase <code>ActivatedRoute</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Inyección del <code>ActivatedRoute</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Método que se ejecuta al inicio del ciclo de vida del componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Uso del método <code>get</code> para acceder al valor de la propiedad introducida por parámetro en la ruta (<a href="https://angular.dev/api/router/ActivatedRoute">enlace</a> a la documentación)</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Y también debemos modificar el archivo <code>new-page.page.html</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ion-header&gt;
+  &lt;ion-toolbar&gt;
+    &lt;ion-buttons slot="start"&gt;
+      &lt;ion-back-button&gt;&lt;/ion-back-button&gt;
+    &lt;/ion-buttons&gt;
+
+    &lt;ion-title&gt;newPage&lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content&gt;
+
+  &lt;ion-text color="medium"&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;h1&gt; Data: {{args}}&lt;/h1&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;/ion-text&gt;
+
+&lt;/ion-content&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Botón de texto (<a href="https://ionicframework.com/docs/api/text">enlace</a> a la documentación)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Valor obtenido del modelo del componente</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para poder acceder desde la página de inicio, debemos modificar el componente <code>home</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  standalone: false,
+})
+export class HomePage {
+
+  data: string = ""; <i class="conum" data-value="1"></i><b>(1)</b>
+
+  constructor(private navCtrl: NavController) {}
+
+  goToNewPageNavCtrl() {
+    this.navCtrl.navigateForward(["/new-page", this.data]); <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Propiedad <code>data</code> del componente <code>home</code> para poder usarlo como parte del modelo</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Construcción de la nueva ruta para añadir el valor de la propiedad <code>data</code> en un array que se le pasa por parámetro al método <code>navigateForward</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>En lugar de pasar el valor dentro del array, también se puede construir la ruta y llamar al método <code>navigateForward</code> directamente con alguno de los siguientes argumentos:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>"/new-page/" + this.data
+`/new-page/${this.data}`</code></pre>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ion-header [translucent]="true"&gt;
+  &lt;ion-toolbar&gt;
+    &lt;ion-title&gt;
+      Blank
+    &lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content [fullscreen]="true"&gt;
+  &lt;ion-header collapse="condense"&gt;
+    &lt;ion-toolbar&gt;
+      &lt;ion-title size="large"&gt;Blank&lt;/ion-title&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-header&gt;
+
+  &lt;div id="container"&gt;
+
+    &lt;ion-item&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+      &lt;ion-input placeholder="Write here the data" [(ngModel)]="data"&gt;&lt;/ion-input&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;/ion-item&gt;
+
+    &lt;ion-button (click)="goToNewPageNavCtrl()"&gt;Go to new page (NavController)&lt;/ion-button&gt;
+
+  &lt;/div&gt;
+&lt;/ion-content&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Componente para introducir texto (enlace a la documentación)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Vinculación del valor introducido con la propiedad <code>data</code> del modelo del componente (two-way data binding)</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_actividad_2_integración_con_servicios_web_en_aplicaciones_ionic">Actividad 2 - Integración con servicios web en aplicaciones Ionic</h3>
+<h3 id="_angular_router_routerlink">1.2. Angular Router: RouterLink</h3>
+<div class="paragraph">
+<p>Para el uso de la directiva RouterLink (<a href="https://angular.dev/api/router/RouterLink">enlace</a>), vamos a utilizar el mismo proyecto anterior.</p>
+</div>
+<div class="paragraph">
+<p>En primer lugar, añadiremos un botón en la página inicial:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ion-header [translucent]="true"&gt;
+  &lt;ion-toolbar&gt;
+    &lt;ion-title&gt;
+      Blank
+    &lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
 
+&lt;ion-content [fullscreen]="true"&gt;
+  &lt;ion-header collapse="condense"&gt;
+    &lt;ion-toolbar&gt;
+      &lt;ion-title size="large"&gt;Blank&lt;/ion-title&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-header&gt;
+
+  &lt;div id="container"&gt;
+
+    &lt;ion-item&gt;
+      &lt;ion-input placeholder="Write here the data" [(ngModel)]="data"&gt;&lt;/ion-input&gt;
+    &lt;/ion-item&gt;
+
+    &lt;ion-button (click)="goToNewPageNavCtrl()"&gt;Go to new page (NavController)&lt;/ion-button&gt;
+
+    &lt;ion-button [routerLink]="['/new-page', data]"&gt;Go to new page (RouterLink)&lt;/ion-button&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+
+  &lt;/div&gt;
+&lt;/ion-content&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Uso de routerLink pasando por parámetro una propiedad del modelo</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>En este caso, vamos a modificar el comportamiento de la componente <code>new-page</code> para mostrar una lista de elementos a partir de los datos introducidos.</p>
+</div>
+<div class="paragraph">
+<p>Supongamos que la lista en formato JSON se encuentra en el archivo <code>new-page.page.ts</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-new-page',
+  templateUrl: './new-page.page.html',
+  styleUrls: ['./new-page.page.scss'],
+  standalone: false,
+})
+export class NewPagePage implements OnInit {
+
+  args: string | null = null;
+
+  elements: any[] = [ <i class="conum" data-value="1"></i><b>(1)</b>
+    {"id": "EL1", "name": "Element 1", "description": "Desc. of EL1"},
+    {"id": "EL2", "name": "Element 2", "description": "Desc. of EL2"}
+  ]
+
+  constructor(private activateRoute: ActivatedRoute) { }
+
+  ngOnInit() {
+
+    this.args = this.activateRoute.snapshot.paramMap.get("elementid");
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Lista de elementos en formato JSON</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Y que mostraremos dicha lista modificando la plantilla HTML del componente:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ion-header&gt;
+  &lt;ion-toolbar&gt;
+    &lt;ion-buttons slot="start"&gt;
+      &lt;ion-back-button&gt;&lt;/ion-back-button&gt;
+    &lt;/ion-buttons&gt;
+
+    &lt;ion-title&gt;newPage&lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content&gt;
+
+  &lt;ion-text color="medium"&gt;
+    &lt;h1&gt; Data: {{args}}&lt;/h1&gt;
+  &lt;/ion-text&gt;
+
+  &lt;ion-list&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;ion-item *ngFor="let element of elements"&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+      &lt;ion-label class="element-label"&gt;{{element.id}}&lt;/ion-label&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+    &lt;/ion-item&gt;
+  &lt;/ion-list&gt;
+
+&lt;/ion-content&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Componente Ionic para mostrar una lista de elementos (ver <a href="https://ionicframework.com/docs/api/list">enlace</a>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Directiva estructural de Angular para generar elementos de plantilla HTML a partir de una colección (ver <a href="https://angular.dev/api/common/NgForOf">enlace</a>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Cada uno de los elementos de la lista mostrados como una etiqueta (ver <a href="https://ionicframework.com/docs/api/label">enlace</a>)</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para utilizar la nueva directiva <code>@for</code> en Angular 17 (ver <a href="https://angular.dev/api/core/@for">enlace</a>), debemos modificar la plantilla HTML del componente <code>new-page</code> de la siguiente manera:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">...
+
+  &lt;ion-list&gt;
+    @for (element of elements; track element.id) { <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;ion-item&gt;
+      &lt;ion-label class="element-label"&gt;{{ element.id }}&lt;/ion-label&gt;
+    &lt;/ion-item&gt;
+    }
+  &lt;/ion-list&gt;
+
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Es recomendable utilizar <code>track</code> para mejorar el rendimiento de la aplicación. Si no se usa <code>track</code>, Angular tratará a todos los elementos de la lista como nuevos en cada cambio y se volverán a renderizar completamente. Con track, Angular reutiliza los elementos que no han cambiado, lo que mejora el rendimiento. Sin <code>track</code>, si <code>elements</code> cambia, Angular borra y vuelve a insertar toda la lista. Con <code>track</code>, Angular solo actualiza los elementos que hayan cambiado.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Por último, añadimos un estilo a los elementos de la lista que debe definirse en el archivo <code>new-page.page.scss</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.scss</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scss" data-lang="scss">.element-label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4a4a4a;
+    text-align: left;
+
+    background: linear-gradient(145deg, #f0f0f3, #d9d9dd);
+    padding: 12px 18px;
+
+    border-radius: 12px;
+    border: 2px solid transparent;
+    box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.6),
+        inset 2px 2px 4px rgba(0, 0, 0, 0.05);
+
+    transition: all 0.2s ease-in-out;
+
+    &amp;:active {
+        box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.15),
+            inset -3px -3px 6px rgba(255, 255, 255, 0.7);
+        transform: scale(0.98);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_actividad_3_uso_de_funciones_nativas_en_aplicaciones_ionic">Actividad 3 - Uso de funciones nativas en aplicaciones Ionic</h3>
-
+<h3 id="_angular_router_navigate">1.3. Angular Router: Navigate</h3>
+<div class="paragraph">
+<p>Además de RouterLink, Angular nos ofrece la posibilidad de navegar por las páginas haciendo uso de la operación <code>navigate</code> de Angular Router (ver <a href="https://angular.dev/api/router/Router">enlace</a>).</p>
 </div>
-<div class="sect2">
-<h3 id="_actividad_4_almacenamiento_y_recuperación_de_datos_en_aplicaciones_ionic">Actividad 4 - Almacenamiento y recuperación de datos en aplicaciones Ionic</h3>
-
+<div class="paragraph">
+<p>Para ello, añadimos un botón en la página inicial:</p>
 </div>
-<div class="sect2">
-<h3 id="_actividad_5_pruebas_en_aplicaciones_ionic">Actividad 5 - Pruebas en aplicaciones Ionic</h3>
-
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.html</code></strong></p>
 </div>
-<div class="sect2">
-<h3 id="_actividad_6_despliegue_de_una_aplicación_híbrida_en_android">Actividad 6 - Despliegue de una aplicación híbrida en Android</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">...
+&lt;ion-button (click)="goToNewPageNavigate()"&gt;Go to new page (Navigate)&lt;/ion-button&gt;
+...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Además, en la definición del componente, realizamos las siguientes modificaciones:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Router } from '@angular/router';
 
+...
+
+  constructor(private router: Router) {} <i class="conum" data-value="1"></i><b>(1)</b>
+
+  goToNewPageNavigate() {
+    this.router.navigate(["/new-page", this.data]); <i class="conum" data-value="2"></i><b>(2)</b>
+
+  }
+
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Inyección del <code>Router</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Uso del método <code>navigate</code> para acceder a la nueva página con el envío de la información de la propiedad <code>data</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>En lugar de utilizar la función <code>navigate</code>, podemos hacer uso de <code>navigateByUrl</code> si queremos pasar argumento directamente la ruta a la que queremos acceder con el valor de la propiedad <code>data</code> como parte de la dirección:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">goToNewPageNavigate() {
+    this.router.navigateByUrl(`/new-page/${this.data}`);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ejercicio_creación_de_una_aplicación_ionic_con_opciones_de_navegación">2. Ejercicio: Creación de una aplicación Ionic con opciones de navegación</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Como ejercicio, se debe crear una aplicación que tenga las siguientes características:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>El inicio de la aplicación muestra tres pestañas. La que se abre por defecto es la segunda.</p>
+</li>
+<li>
+<p>Las pestañas deben referirse a:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Clients</p>
+</li>
+<li>
+<p>Reservations</p>
+</li>
+<li>
+<p>Products</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Los iconos de acceso a cada pestaña deben corresponderse con el tipo de información (clientes, productos y reservas).</p>
+</li>
+<li>
+<p>El contenido de cada pestaña debe tener un botón que abra una nueva página.</p>
+</li>
+<li>
+<p>Los botones de las tres pestañas deben aparecer exactamente a la misma altura, tres píxeles por debajo de la mitad del componente y centrados.</p>
+</li>
+<li>
+<p>Las tres nuevas páginas a las que se accede, tienen similares características:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Muestran un listado de elementos de ejemplo (clientes, reservas y productos, respectivamente).</p>
+</li>
+<li>
+<p>Tienen un botón para navegar hacia atrás (cada una debe volver a su pestaña)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>La página de clientes tiene una funcionalidad adicional. Tiene un botón para ir a una nueva página para editar los datos del cliente. En dicha página no debe implementarse contenido, solo el título, pero permitirá dos cosas:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Volver atrás</p>
+</li>
+<li>
+<p>Ir al inicio de la aplicación</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-21 13:23:45 +0100
+Last updated 2025-02-24 11:46:37 +0100
 </div>
 </div>
 </body>
