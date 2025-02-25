@@ -655,7 +655,13 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_angular_router_navigate">1.3. Angular Router: Navigate</a></li>
 </ul>
 </li>
-<li><a href="#_ejercicio_creación_de_una_aplicación_ionic_con_opciones_de_navegación">2. Ejercicio: Creación de una aplicación Ionic con opciones de navegación</a></li>
+<li><a href="#_navegación_con_componentes_standalone">2. Navegación con componentes <em>standalone</em></a>
+<ul class="sectlevel2">
+<li><a href="#_aspectos_a_tener_en_cuenta_en_la_adaptación_de_componentes">2.1. Aspectos a tener en cuenta en la adaptación de componentes</a></li>
+<li><a href="#_aspectos_a_tener_en_cuenta_en_la_adaptación_de_los_archivos_de_enrutamiento">2.2. Aspectos a tener en cuenta en la adaptación de los archivos de enrutamiento</a></li>
+</ul>
+</li>
+<li><a href="#_ejercicio_creación_de_una_aplicación_ionic_con_opciones_de_navegación">3. Ejercicio: Creación de una aplicación Ionic con opciones de navegación</a></li>
 </ul>
 </div>
 </div>
@@ -1555,7 +1561,212 @@ export class NewPagePage implements OnInit {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ejercicio_creación_de_una_aplicación_ionic_con_opciones_de_navegación">2. Ejercicio: Creación de una aplicación Ionic con opciones de navegación</h2>
+<h2 id="_navegación_con_componentes_standalone">2. Navegación con componentes <em>standalone</em></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En el caso de que no queramos hacer uso de <em>NgModules</em> y queramos que los componentes sean <em>standalone</em>, debemos modificar la forma de declarar los componentes.</p>
+</div>
+<div class="sect2">
+<h3 id="_aspectos_a_tener_en_cuenta_en_la_adaptación_de_componentes">2.1. Aspectos a tener en cuenta en la adaptación de componentes</h3>
+<div class="paragraph">
+<p>Para llevar a cabo la adaptación de los componentes, debemos realizar los siguientes cambios. Se recomienda crear un nuevo proyecto seleccionando la opción de <em>standalone</em>.</p>
+</div>
+<div class="paragraph">
+<p>Debemos adaptar el componente <code>home</code> de la siguiente forma:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonItem, IonInput } from '@ionic/angular/standalone';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonButton, IonInput, RouterLink, FormsModule], <i class="conum" data-value="1"></i><b>(1)</b>
+})
+export class HomePage {
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Es necesario realizar la importación de cada uno de los componentes que se utilizan (<code>ion-header</code>, <code>ion-toolbar</code>, <code>ion-title</code>, <code>ion-content</code>, <code>ion-button</code>, <code>ion-item,</code> <code>ion-input</code>), así como de las directivas que se utilizan (en este caso <code>RouterLink</code>). Además, es necesario importar el módulo <code>FormsModule</code> para poder hacer uso de la directiva <code>NgModel</code> en el componente.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Por otro lado, podemos adaptar el componente <code>new-page</code> de la siguiente forma:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>new-page.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonButtons, IonBackButton, IonContent, IonHeader, IonItem, IonLabel, IonList, IonText, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-new-page',
+  templateUrl: './new-page.page.html',
+  styleUrls: ['./new-page.page.scss'],
+  standalone: true,
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonLabel, IonList, IonText, IonButtons, IonBackButton]<i class="conum" data-value="1"></i><b>(1)</b>
+})
+export class NewPagePage implements OnInit {
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>En este caso, además de realizar la importación de cada uno de los componentes que se utilizan, es necesario importar el módulo <code>CommonModule</code> para poder hacer uso de las directivas estructurales de Angular (en este caso el bloque <code>@for</code>).</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Además, hay que tener en cuenta que es necesario modificar el archivo que gestiona la declaración de las rutas de la aplicación, en este caso <code>app.routes.ts</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>app.routes.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: 'home',
+    loadComponent: () =&gt; import('./home/home.page').then((m) =&gt; m.HomePage),
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'new-page/:data',
+    loadComponent: () =&gt; import('./new-page/new-page.page').then( m =&gt; m.NewPagePage)
+  },
+];</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aspectos_a_tener_en_cuenta_en_la_adaptación_de_los_archivos_de_enrutamiento">2.2. Aspectos a tener en cuenta en la adaptación de los archivos de enrutamiento</h3>
+<div class="paragraph">
+<p>En un proyecto Ionic que se basa en componentes <em>standalone</em>, debemos modificar la forma en la que se gestionan las rutas de la aplicación. En lugar de hacer uso de <code>RouterModule</code>, debemos hacer uso de la clase <code>Router</code> de Angular.</p>
+</div>
+<div class="paragraph">
+<p>Para ello, estableremos una serie de rutas en un archivo de configuración, en este caso <code>app.routes.ts</code>. En este archivo, se definen las rutas de la aplicación y se establece la carga de los componentes asociados a cada una de las rutas.</p>
+</div>
+<div class="paragraph">
+<p>Podemos establecer todas las rutas de la aplicación en dicho archivo, o bien podemos establecer las rutas que dependan de un componente o de una página en un archivo específico para dicho componente o página. Veamos a continuación un ejemplo que combina ambas estrategias.</p>
+</div>
+<div class="paragraph">
+<p>En el archivo <code>app.routes.ts</code>, establecemos las rutas de la aplicación:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>app.routes.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Routes } from '@angular/router';
+import { AnotherPage } from './another/another.page';
+
+export const routes: Routes = [
+  {
+    path: 'home',
+    loadComponent: () =&gt; import('./home/home.page').then((m) =&gt; m.HomePage),
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'new-page/:data',
+    loadComponent: () =&gt; import('./new-page/new-page.page').then( m =&gt; m.NewPagePage)
+  },
+  {
+    path: 'another',
+    component: AnotherPage,
+  },
+  {
+    path: 'features',
+    loadChildren: () =&gt; import('./features/features.routes').then( r =&gt; r.FEATURES_ROUTES)
+  },
+
+];</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>En el archivo de rutas anterior se establece una ruta que carga un componente <code>AnotherPage</code> directamente, y otra ruta que carga un módulo de rutas específico para las características de la aplicación. En este caso, el módulo de rutas se encuentra en el archivo <code>features.routes.ts</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>features.routes.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Routes } from '@angular/router';
+import { Feature2Page } from '../feature2/feature2.page';
+import { FeaturesPage } from './features.page';
+
+export const FEATURES_ROUTES: Routes = [
+  {
+    path: '',
+    component: FeaturesPage,
+  },
+  {
+    path: 'f1',
+    loadComponent: () =&gt; import('../feature1/feature1.page').then( m =&gt; m.Feature1Page),
+  },
+  {
+    path: 'f2',
+    component: Feature2Page,
+  }
+];</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>En el archivo <code>features.routes.ts</code>, se establecen las rutas específicas para la navegación a partir de la ruta <code>/features</code>. En este caso, se establece una ruta que carga de forma directa los componentes <code>FeaturesPage</code> y <code>Feature2Page</code>, y otra ruta que carga de forma indirecta el componente <code>Feature1Page</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ejercicio_creación_de_una_aplicación_ionic_con_opciones_de_navegación">3. Ejercicio: Creación de una aplicación Ionic con opciones de navegación</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Como ejercicio, se debe crear una aplicación que tenga las siguientes características:</p>
@@ -1623,7 +1834,7 @@ export class NewPagePage implements OnInit {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-24 11:52:06 +0100
+Last updated 2025-02-24 18:59:33 +0100
 </div>
 </div>
 </body>
