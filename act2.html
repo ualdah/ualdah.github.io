@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
-<meta name="author" content="Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL">
+<meta name="author" content="Desarrollo de Aplicaciones Híbridas&#8201;&#8212;&#8201;Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL">
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-<title>Desarrollo de Aplicaciones Híbridas</title>
+<title>Integración con servicios web en aplicaciones Ionic</title>
 <style>
 @import url(http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.css);
 /* normalize.css v2.1.1 | MIT License | git.io/normalize */
@@ -641,65 +641,613 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Desarrollo de Aplicaciones Híbridas</h1>
+<h1>Integración con servicios web en aplicaciones Ionic</h1>
 <div class="details">
-<span id="author" class="author">Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL</span><br>
+<span id="author" class="author">Desarrollo de Aplicaciones Híbridas&#8201;&#8212;&#8201;Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Tabla de contenidos</div>
 <ul class="sectlevel1">
-<li><a href="#_actividades">Actividades</a>
+<li><a href="#_utilización_de_una_api_externa">1. Utilización de una API externa</a>
 <ul class="sectlevel2">
-<li><a href="#_actividad_0_desarrollo_de_una_aplicación_híbrida_con_ionic">Actividad 0 - Desarrollo de una aplicación híbrida con Ionic</a></li>
-<li><a href="#_actividad_1_navegación_y_routing_en_aplicaciones_ionic">Actividad 1 - Navegación y routing en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_2_integración_con_servicios_web_en_aplicaciones_ionic">Actividad 2 - Integración con servicios web en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_3_uso_de_funciones_nativas_en_aplicaciones_ionic">Actividad 3 - Uso de funciones nativas en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_4_almacenamiento_y_recuperación_de_datos_en_aplicaciones_ionic">Actividad 4 - Almacenamiento y recuperación de datos en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_5_pruebas_en_aplicaciones_ionic">Actividad 5 - Pruebas en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_6_despliegue_de_una_aplicación_híbrida_en_android">Actividad 6 - Despliegue de una aplicación híbrida en Android</a></li>
+<li><a href="#_creación_de_una_cuenta_de_usuario">1.1. Creación de una cuenta de usuario</a></li>
+<li><a href="#_prueba_de_la_api">1.2. Prueba de la API</a></li>
+<li><a href="#_otras_apis_de_ejemplo">1.3. Otras APIs de ejemplo</a></li>
 </ul>
 </li>
+<li><a href="#_utilización_de_servicios_en_ionic">2. Utilización de servicios en Ionic</a>
+<ul class="sectlevel2">
+<li><a href="#_creación_de_un_servicio">2.1. Creación de un servicio</a></li>
+<li><a href="#_uso_del_servicio">2.2. Uso del servicio</a></li>
+</ul>
+</li>
+<li><a href="#_utilización_de_servicios_web_en_ionic">3. Utilización de servicios web en Ionic</a>
+<ul class="sectlevel2">
+<li><a href="#_configuración_del_entorno">3.1. Configuración del entorno</a></li>
+<li><a href="#_configuración_de_la_ejecución_de_la_aplicación">3.2. Configuración de la ejecución de la aplicación</a></li>
+<li><a href="#_creación_de_un_modelo_para_los_datos_de_la_api">3.3. Creación de un modelo para los datos de la API</a></li>
+<li><a href="#_creación_de_un_servicio_que_haga_uso_de_una_api">3.4. Creación de un servicio que haga uso de una API</a></li>
+<li><a href="#_modificación_del_componente_para_obtener_y_para_mostrar_los_resultados">3.5. Modificación del componente para obtener y para mostrar los resultados</a></li>
+</ul>
+</li>
+<li><a href="#_ejercicio_creación_de_una_aplicación_ionic_con_servicios">4. Ejercicio: Creación de una aplicación Ionic con servicios</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_actividades">Actividades</h2>
+<h2 id="_utilización_de_una_api_externa">1. Utilización de una API externa</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para la realización de esta actividad, vamos a utilizar una API de terceros. En este caso, se va a hacer uso de <a href="http://www.omdbapi.com/">OMDb API</a>, que nos permite realizar peticiones de información acerca de películas (hasta 1000 peticiones al día de forma gratuita).</p>
+</div>
+<div class="sect2">
+<h3 id="_creación_de_una_cuenta_de_usuario">1.1. Creación de una cuenta de usuario</h3>
+<div class="paragraph">
+<p>Para crear una cuenta de usuario y habilitar su uso, seguiremos los pasos indicados en el siguiente <a href="http://www.omdbapi.com/apikey.aspx">enlace</a>. Una vez creada la cuenta y validada, debemos acceder a la <a href="http://www.omdbapi.com/#usage">documentación</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prueba_de_la_api">1.2. Prueba de la API</h3>
+<div class="paragraph">
+<p>La prueba de la API puede realizarse a través de la propia página de OMDb API, aunque también podemos hacer peticiones a través de Postman.</p>
+</div>
+<div class="paragraph">
+<p>Se recomienda probar, al menos, las siguientes dos operaciones:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La obtención de una lista de películas a partir de su título. Parámetros requerido:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>apikey: Clave que hemos obtenido al crear la cuenta de usuario.</p>
+</li>
+<li>
+<p>s: Cadena de texto que se encuentra en el título de la película.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>La obtención de todos los datos de una película a partir de su título. Parámetros requeridos:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>apikey: Clave que hemos obtenido al crear la cuenta de usuario.</p>
+</li>
+<li>
+<p>t: Título de la película (no tiene que ser exacto).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_otras_apis_de_ejemplo">1.3. Otras APIs de ejemplo</h3>
+<div class="paragraph">
+<p>Existen otras APIs que se pueden utilizar para realizar pruebas, como por ejemplo:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.themoviedb.org/documentation/api">The Movie Database</a>. API que permite obtener información acerca de películas y series de televisión.</p>
+</li>
+<li>
+<p><a href="https://jsonplaceholder.typicode.com/">JSONPlaceholder</a>. API que permite realizar pruebas de peticiones HTTP.</p>
+</li>
+<li>
+<p><a href="https://pokeapi.co/">PokeAPI</a>. API que permite obtener información acerca de los Pokémon.</p>
+</li>
+<li>
+<p><a href="https://developer.spotify.com/documentation/web-api/">Spotify Web API</a>. API que permite obtener información acerca de canciones, álbumes y artistas.</p>
+</li>
+<li>
+<p><a href="https://developer.marvel.com/docs">Marvel API</a>. API que permite obtener información acerca de los personajes de Marvel.</p>
+</li>
+<li>
+<p><a href="https://developer.github.com/v3/">GitHub API</a>. API que permite obtener información acerca de los repositorios y usuarios de GitHub.</p>
+</li>
+<li>
+<p><a href="https://developer.weather.com/">The Weather Company API</a>. API que permite obtener información acerca del tiempo meteorológico.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utilización_de_servicios_en_ionic">2. Utilización de servicios en Ionic</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En esta actividad vamos a revisar los conceptos de <code>Service</code>, <code>Injectable</code> y <code>Provider</code>. Los tres conceptos se utilizan cuando hacemos uso de servicios, pero desde perspectivas diferentes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Service</code>. Elemento que ejecuta una funcionalidad.</p>
+</li>
+<li>
+<p><code>Injectable</code>. Tipo de servicio que puede inyectarse como dependencia en otra clase.</p>
+</li>
+<li>
+<p><code>Provider</code>. Objeto que establece cómo obtener y crear una dependencia.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_creación_de_un_servicio">2.1. Creación de un servicio</h3>
+<div class="paragraph">
+<p>Partimos de que hemos creado una nueva aplicación vacía mediante el comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>ionic start servApp blank --type=angular</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si creamos un servicio <code>newservice</code> (mediante el comando <code>ionic g service services/newservice</code>), podemos ver su estructura:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>services/newservice.service.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Injectable } from '@angular/core'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+@Injectable({
+  providedIn: 'root' <i class="conum" data-value="2"></i><b>(2)</b>
+})
+export class NewserviceService {
+
+  constructor() { }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Importación del decorador <code>Injectable</code> que permite a una clase que se proporcionada e inyectada como dependencia en otra clase (ver <a href="https://angular.io/api/core/Injectable">enlace</a>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Determina que este servicio puede ser inyectado a nivel de aplicación. Otras alternativas son <code>platform</code> (varias aplicaciones sobre un mismo componente, en modo singleton) y <code>any</code> (una única instancia por módulo). Para más información, se recomienda ver el siguiente <a href="https://dev.to/christiankohler/improved-dependeny-injection-with-the-new-providedin-scopes-any-and-platform-30bb">enlace</a>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Añadiremos en dicha clase una función para mostrar información por consola y poder probar su funcionamiento:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Modificación de <code>services/newservice.service.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NewserviceService {
+
+  constructor() { }
+
+  testOperation () { <i class="conum" data-value="1"></i><b>(1)</b>
+    console.log("Executing test operation...");
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Operación de ejemplo</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>En el caso de que el servicio se quisiera utilizar solo en el ámbito de un módulo particular (con <code>providedIn: 'any'</code>), se debería especificar el módulo al que queremos que haga referencia dicho servicio.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uso_del_servicio">2.2. Uso del servicio</h3>
+<div class="paragraph">
+<p>Modificaremos la página <code>home</code> para hacer uso del servicio anterior:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Modificación de <code>home.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, OnInit } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { NewserviceService } from '../services/newservice.service'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+})
+export class HomePage implements OnInit{
+
+  constructor(private newService : NewserviceService) {} <i class="conum" data-value="2"></i><b>(2)</b>
+
+  ngOnInit(): void { <i class="conum" data-value="3"></i><b>(3)</b>
+    this.newService.testOperation();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Importación del servicio</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Inyección del servicio</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Ejecución de la operación del servicio cuando la página se inicia. Existen diferentes tipos de eventos que se disparan dependiendo del estado en el que se encuentre un componente dentro de su ciclo de vida (se recomienda ver el siguiente <a href="https://angular.dev/guide/components/lifecycle">enlace</a>)</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utilización_de_servicios_web_en_ionic">3. Utilización de servicios web en Ionic</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_actividad_0_desarrollo_de_una_aplicación_híbrida_con_ionic"><a href="https://ualdah.github.io/act0.html">Actividad 0 - Desarrollo de una aplicación híbrida con Ionic</a></h3>
-
+<h3 id="_configuración_del_entorno">3.1. Configuración del entorno</h3>
+<div class="paragraph">
+<p>En primer lugar, debemos establecer el valor de nuestra clave de acceso. Para ello, debemos modificar los ficheros <code>environment.ts</code> y <code>environment.prod.ts</code> incluyendo la clave de acceso que hemos obtenido al crear la cuenta de usuario en la API que tenemos previsto utilizar, en este caso, OMDb API:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">export const environment = {
+  production: false,
+  apiKeyOMDb: '[your apikey]'
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_actividad_1_navegación_y_routing_en_aplicaciones_ionic"><a href="https://ualdah.github.io/act1.html">Actividad 1 - Navegación y routing en aplicaciones Ionic</a></h3>
+<h3 id="_configuración_de_la_ejecución_de_la_aplicación">3.2. Configuración de la ejecución de la aplicación</h3>
+<div class="paragraph">
+<p>Para poder hacer uso de un servicio web externo, si utilizamos una solución basada en componentes <em>standalone</em>, debemos utilizar un cliente HTTP para poder realizar peticiones. Para ello, debemos configurar nuestra aplicación para que pueda hacer uso de dicho cliente modificando el fichero <code>main.ts</code>. En dicho fichero, incorporaremos el proveedor del cliente HTTP de la siguiente forma:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>main.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { bootstrapApplication } from '@angular/platform-browser';
+import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
+import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 
+import { routes } from './app/app.routes';
+import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideIonicAngular(),
+    provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideHttpClient(), <i class="conum" data-value="1"></i><b>(1)</b>
+  ],
+});</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Proveedor del cliente HTTP</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>La función <code>provideHttpClient()</code> es la nueva forma recomendada en Angular para registrar <code>HttpClient</code> en el sistema de inyección de dependencias sin necesidad de importar <code>HttpClientModule</code>.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_actividad_2_integración_con_servicios_web_en_aplicaciones_ionic"><a href="https://ualdah.github.io/act2.html">Actividad 2 - Integración con servicios web en aplicaciones Ionic</a></h3>
+<h3 id="_creación_de_un_modelo_para_los_datos_de_la_api">3.3. Creación de un modelo para los datos de la API</h3>
+<div class="paragraph">
+<p>Para poder trabajar con los datos que nos devuelve la API, debemos crear un modelo que represente dichos datos. En este caso, crearemos un modelo para las películas que nos devuelve la API de OMDb:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>models/movies.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">export interface OMDbSearchApiResponse {
+    Search: OMDbMovie[];
+    totalResults: string;
+    Response: string;
+}
 
+export interface OMDbMovie {
+    Title: string;
+    Year: string;
+    imdbID: string;
+    Type: string;
+    Poster: string;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>En este modelo se ha incluido, además de los datos de la película en el tipo <code>OMDbMovie</code> (título, año, identificador, tipo y póster), un tipo <code>OMDbSearchApiResponse</code> que contiene una lista de películas y el número total de resultados. Esta estructura se obtiene de la documentación de la API de OMDb (ver <a href="http://www.omdbapi.com/#usage">enlace</a>). Además, comprobaremos que los datos que nos devuelve la API se ajustan a la estructura que hemos definido mediante el uso de un cliente HTTP como <a href="https://www.postman.com/">Postman</a> o <a href="https://insomnia.rest/">Insomnia</a>.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_actividad_3_uso_de_funciones_nativas_en_aplicaciones_ionic">Actividad 3 - Uso de funciones nativas en aplicaciones Ionic</h3>
+<h3 id="_creación_de_un_servicio_que_haga_uso_de_una_api">3.4. Creación de un servicio que haga uso de una API</h3>
+<div class="paragraph">
+<p>Como ejemplo, crearemos un servicio que haga uso de la API de OMDb para obtener una lista de películas a partir de un título. Para ello, generaremos un nuevo servicio llamado <code>movieService</code> mediante el comando <code>ionic g service services/movieService</code>.</p>
+</div>
+<div class="paragraph">
+<p>debemos modificar el servicio <code>newservice</code> que hemos creado anteriormente.
+Como parte de la implementación del servicio, debemos utilizar la clase <code>HttpClient</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>services/movieservice.service.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { OMDbMovie, OMDbSearchApiResponse } from '../models/movies';
 
+@Injectable({
+  providedIn: 'root'
+})
+export class MovieService {
+
+  url: string = 'http://www.omdbapi.com/'; <i class="conum" data-value="1"></i><b>(1)</b>
+  apiKey: string = environment.apiKeyOMDb; <i class="conum" data-value="2"></i><b>(2)</b>
+
+  private http = inject(HttpClient); <i class="conum" data-value="3"></i><b>(3)</b>
+
+  searchMovie(title: string): Observable&lt;OMDbMovie[]&gt; { <i class="conum" data-value="4"></i><b>(4)</b>
+    return this.http.get&lt;OMDbSearchApiResponse&gt;(`${this.url}?s=${encodeURI(title)}&amp;apikey=${this.apiKey}`)
+      .pipe(map(results =&gt; results.Search)
+      ); <i class="conum" data-value="5"></i><b>(5)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Dirección base del servicio web</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Clave para poder hacer uso del servicio web</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Inyección de la clase <code>HttpClient</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Uso del tipo <code>Observable</code> en la devolución para poder suscribirse a los resultados (en este caso una lista de películas) y obtenerlos de forma dinámica</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Uso del método <code>get</code> para obtener primero la respuesta de la API en el formato <code>OMDbSearchApiResponse</code>. Seguidamente, se hace uso de <code>pipe</code> y <code>map</code> para obtener la lista de películas (<code>Search</code>) de la respuesta de la API.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_actividad_4_almacenamiento_y_recuperación_de_datos_en_aplicaciones_ionic">Actividad 4 - Almacenamiento y recuperación de datos en aplicaciones Ionic</h3>
-
+<h3 id="_modificación_del_componente_para_obtener_y_para_mostrar_los_resultados">3.5. Modificación del componente para obtener y para mostrar los resultados</h3>
+<div class="paragraph">
+<p>Modificaremos el componente <code>home</code> para mostrar los resultados cuando se ejecuta la operación introduciendo por parámetro una cadena de texto:</p>
 </div>
-<div class="sect2">
-<h3 id="_actividad_5_pruebas_en_aplicaciones_ionic">Actividad 5 - Pruebas en aplicaciones Ionic</h3>
-
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.ts</code></strong></p>
 </div>
-<div class="sect2">
-<h3 id="_actividad_6_despliegue_de_una_aplicación_híbrida_en_android">Actividad 6 - Despliegue de una aplicación híbrida en Android</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, inject, OnInit } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel } from '@ionic/angular/standalone';
+import { MovieService } from '../services/movie.service';
+import { AsyncPipe, NgFor } from '@angular/common';
 
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, AsyncPipe],
+})
+export class HomePage implements OnInit{
+
+  results!: Observable&lt;OMDbMovie[]&gt<i class="conum" data-value="1"></i><b>(1)</b>
+
+  private movieService = inject(MovieService); <i class="conum" data-value="2"></i><b>(2)</b>
+
+  ngOnInit(): void {
+    this.searchMovies(); <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+
+  searchMovies(): void {
+    this.results = this.movieService.searchMovie("Jurassic Park"); <i class="conum" data-value="4"></i><b>(4)</b>
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Propiedad para guardar los resultados, que serán de tipo <code>Observable</code> para poder obtenerlos de forma asíncrona. Además, con <code>!</code> se indica que no se exija una inicialización inmediata. Indica que la variable será inicializada en algún punto antes de su uso, aunque no tenga un valor en el momento de la declaración.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Inyección del servicio <code>MovieService</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Llamada a la operación de búsqueda de películas cuando el componente se inicia</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Invocación del método <code>searchMovie</code> introduciendo una cadena de texto de ejemplo</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para mostrar los resultados, modificaremos el archivo <code>home.page.html</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">...
+
+  &lt;div id="container"&gt;
+
+    &lt;ion-label&gt;Resultados:&lt;/ion-label&gt;
+
+    &lt;ion-list&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+      @for (item of (results | async); track item.imdbID) { <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b> <i class="conum" data-value="4"></i><b>(4)</b>
+      &lt;ion-item button&gt;
+        &lt;ion-label text-wrap&gt;
+          {{ item.Title }} ({{ item.Year }})
+        &lt;/ion-label&gt;
+      &lt;/ion-item&gt;
+      }
+    &lt;/ion-list&gt;
+
+  &lt;/div&gt;
+
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Lista para mostrar los resultados</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Uso de <code>@for</code> para iterar sobre los resultados obtenidos</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Uso de <code>AsyncPipe</code> para obtener los datos de un <code>Observable</code> de forma asíncrona  (ver <a href="https://angular.dev/api/common/AsyncPipe">enlace</a>).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Uso de <code>track</code> con un identificador único (<code>imdbID</code>) para optimizar la actualización de la lista.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ejercicio_creación_de_una_aplicación_ionic_con_servicios">4. Ejercicio: Creación de una aplicación Ionic con servicios</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Como ejercicio, se debe crear una aplicación que tenga las siguientes características:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>El inicio de la aplicación muestra una página con un campo para introducir una cadena de texto y un botón para iniciar una búsqueda.</p>
+</li>
+<li>
+<p>Al pulsar el botón, se accederá a una nueva página que mostrará una lista de películas (haciendo uso de OMDb API) cuyo título contenga la cadena de texto introducida.</p>
+</li>
+<li>
+<p>Al pulsar en un elemento de la lista, se debe acceder a una nueva página que muestra los detalles de dicha película.</p>
+</li>
+<li>
+<p>Se debe utilizar un único servicio con dos operaciones:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Una para obtener una lista de películas</p>
+</li>
+<li>
+<p>Otra para obtener los detalles de una película</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Se debe añadir un nuevo "property binding" que tenga sentido dentro del dominio de la aplicación propuesta.</p>
+</li>
+<li>
+<p>Se debe añadir un nuevo "event binding" que tenga sentido dentro del dominio de la aplicación propuesta.</p>
+</li>
+<li>
+<p>Se debe añadir un nuevo "two-way binding" que tenga sentido dentro del dominio de la aplicación propuesta.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Nota:</strong> Se puede hacer uso del siguiente recurso web (ver <a href="https://www.freecodecamp.org/news/how-to-build-your-first-ionic-4-app-with-api-calls-f6ea747dc17a/">enlace</a>) para inspiraros en la realización del ejercicio.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-27 13:02:41 +0100
+Last updated 2025-02-27 12:51:21 +0100
 </div>
 </div>
 </body>
