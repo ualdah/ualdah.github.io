@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
-<meta name="author" content="Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL">
+<meta name="author" content="Desarrollo de Aplicaciones Híbridas&#8201;&#8212;&#8201;Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL">
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-<title>Desarrollo de Aplicaciones Híbridas</title>
+<title>Uso de funciones nativas en aplicaciones Ionic</title>
 <style>
 @import url(http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.css);
 /* normalize.css v2.1.1 | MIT License | git.io/normalize */
@@ -641,65 +641,503 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Desarrollo de Aplicaciones Híbridas</h1>
+<h1>Uso de funciones nativas en aplicaciones Ionic</h1>
 <div class="details">
-<span id="author" class="author">Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL</span><br>
+<span id="author" class="author">Desarrollo de Aplicaciones Híbridas&#8201;&#8212;&#8201;Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Tabla de contenidos</div>
 <ul class="sectlevel1">
-<li><a href="#_actividades">Actividades</a>
-<ul class="sectlevel2">
-<li><a href="#_actividad_0_desarrollo_de_una_aplicación_híbrida_con_ionic">Actividad 0 - Desarrollo de una aplicación híbrida con Ionic</a></li>
-<li><a href="#_actividad_1_navegación_y_routing_en_aplicaciones_ionic">Actividad 1 - Navegación y routing en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_2_integración_con_servicios_web_en_aplicaciones_ionic">Actividad 2 - Integración con servicios web en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_3_uso_de_funciones_nativas_en_aplicaciones_ionic">Actividad 3 - Uso de funciones nativas en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_4_almacenamiento_y_recuperación_de_datos_en_aplicaciones_ionic">Actividad 4 - Almacenamiento y recuperación de datos en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_5_pruebas_en_aplicaciones_ionic">Actividad 5 - Pruebas en aplicaciones Ionic</a></li>
-<li><a href="#_actividad_6_despliegue_de_una_aplicación_híbrida_en_android">Actividad 6 - Despliegue de una aplicación híbrida en Android</a></li>
-</ul>
-</li>
+<li><a href="#_uso_de_capacitor">1. Uso de Capacitor</a></li>
+<li><a href="#_obtención_de_la_geolocalización_del_dispositivo">2. Obtención de la geolocalización del dispositivo</a></li>
+<li><a href="#_utilización_de_la_cámara_del_dipositivo">3. Utilización de la cámara del dipositivo</a></li>
+<li><a href="#_uso_otras_funcionalidades_nativas">4. Uso otras funcionalidades nativas</a></li>
+<li><a href="#_ejercicio_creación_de_una_aplicación_ionic_con_funciones_nativas">5. Ejercicio: Creación de una aplicación Ionic con funciones nativas</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_actividades">Actividades</h2>
+<h2 id="_uso_de_capacitor">1. Uso de Capacitor</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_actividad_0_desarrollo_de_una_aplicación_híbrida_con_ionic"><a href="https://ualdah.github.io/act0.html">Actividad 0 - Desarrollo de una aplicación híbrida con Ionic</a></h3>
-
+<div class="paragraph">
+<p>Para poder utilizar funciones nativas en un proyecto Ionic, debemos incorporar en él la integración con Ionic Capacitor o con Apache Cordova.</p>
 </div>
-<div class="sect2">
-<h3 id="_actividad_1_navegación_y_routing_en_aplicaciones_ionic"><a href="https://ualdah.github.io/act1.html">Actividad 1 - Navegación y routing en aplicaciones Ionic</a></h3>
-
+<div class="paragraph">
+<p>En esta actividad, vamos a utilizar Ionic Capacitor, por lo que el primer paso es generar una aplicación vacía en la que se active su integración:</p>
 </div>
-<div class="sect2">
-<h3 id="_actividad_2_integración_con_servicios_web_en_aplicaciones_ionic"><a href="https://ualdah.github.io/act2.html">Actividad 2 - Integración con servicios web en aplicaciones Ionic</a></h3>
-
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ionic start nativeOpsApp blank --type=angular --capacitor</code></pre>
 </div>
-<div class="sect2">
-<h3 id="_actividad_3_uso_de_funciones_nativas_en_aplicaciones_ionic"><a href="https://ualdah.github.io/act3.html">Actividad 3 - Uso de funciones nativas en aplicaciones Ionic</a></h3>
-
 </div>
-<div class="sect2">
-<h3 id="_actividad_4_almacenamiento_y_recuperación_de_datos_en_aplicaciones_ionic">Actividad 4 - Almacenamiento y recuperación de datos en aplicaciones Ionic</h3>
-
+<div class="paragraph">
+<p>El siguiente paso será inciar la configuración de Capacitor en el proyecto:</p>
 </div>
-<div class="sect2">
-<h3 id="_actividad_5_pruebas_en_aplicaciones_ionic">Actividad 5 - Pruebas en aplicaciones Ionic</h3>
-
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ cd nativeOpsApp
+$ npx cap init</code></pre>
 </div>
-<div class="sect2">
-<h3 id="_actividad_6_despliegue_de_una_aplicación_híbrida_en_android">Actividad 6 - Despliegue de una aplicación híbrida en Android</h3>
+</div>
+<div class="paragraph">
+<p>En las últimas versiones de Ionic, al indicar que se active la integración con Capacitor, se crea un proyecto con la estructura de directorios adecuada para que la integración se realice correctamente. Por ello, si realizamos la ejecución del comando <code>npx cap init</code> en el directorio raíz del proyecto, se nos indicará que ya existe una configuración:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>[error] Cannot run init for a project using a non-JSON configuration file.
+        Delete capacitor.config.ts and try again.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Podemos eliminar la configuración existe para crear una nueva con el comando <code>npx cap init</code>. Cuando se nos solicite el nombre de la aplicación, lo más práctico es otorgar el mismo nombre que el del proyecto creado. En este caso, el nombre será <code>nativeOpsApp</code>.</p>
+</div>
+<div class="paragraph">
+<p>Cuando se nos pida el identificador del paquete de la aplicación, debemos escribir un nombre con el formato de un paquete Java. En este caso, el nombre que introduciremos será <code>com.dah.nativeops</code>.</p>
+</div>
+<div class="paragraph">
+<p>La salida por consola nos confirma que la integración con Capacitor se ha realizado correctamente y nos indica la referencia a la ayuda para continuar con la configuración del proyecto:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>[success] capacitor.config.ts created!
 
+Next steps:
+https://capacitorjs.com/docs/getting-started#where-to-go-next</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para poder añadir la configuración para una plataforma concreta, debemos primero compilar nuestro proyecto. Por ello, el siguiente paso que debemos ejecutar es:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ionic build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>De esta forma, se habrá creado la carpeta <code>www</code> con los archivos necesarios para poder realizar un despliegue de la aplicación.</p>
+</div>
+<div class="paragraph">
+<p>Ahora podemos añadir diferentes plataformas objetivo para que Capacitor configure su despliegue. Añadiremos las plataformas iOS y Android. Primero debemos instalar las dependencias con ambas plataformas y luego añadir las plataformas en el proyecto:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ npm install @capacitor/ios
+$ npm install @capacitor/android
+
+$ npx cap add ios
+$ npx cap add android</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Comprobaremos que la aplicación funciona correctamente mediante la ejecución de:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ionic serve</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_obtención_de_la_geolocalización_del_dispositivo">2. Obtención de la geolocalización del dispositivo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para la obtención de la geolocalización del dispositivo y su visualización en el aplicación Ionic, debemos instalar la dependencia correspondiente (ver el siguiente <a href="https://capacitorjs.com/docs/apis/geolocation">enlace</a>).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ npm install @capacitor/geolocation
+$ npx cap sync</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El objetivo de <code>npx cap sync</code> es sincronizar los archivos de origen del proyecto con los archivos nativos de la plataforma objetivo (como iOS y Android). Esto puede incluir la configuración de permisos necesarios en los archivos de configuración nativos, como el archivo <code>Info.plist</code> para iOS o el archivo <code>AndroidManifest.xml</code> para Android. Capacitor también puede realizar otras tareas de sincronización necesarias para garantizar que el complemento de geolocalización funcione correctamente en la aplicación móvil.</p>
+</div>
+<div class="paragraph">
+<p>El siguiente paso es modificar el componente <code>home</code>. En la definición del componente, debemos hacer uso de la funciones ofrecidas por la API Geolocation de Capacitor (<a href="https://capacitorjs.com/docs/apis/geolocation">enlace</a>). Para ello, modificaremos el archivo <code>home.page.ts</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, OnInit } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonCard, IonCardContent, IonCardTitle, IonCardHeader } from '@ionic/angular/standalone';
+import { Geolocation } from '@capacitor/geolocation'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonCard, IonCardContent, IonCardTitle, IonCardHeader],
+})
+export class HomePage implements OnInit {
+
+  public latitude?: number; <i class="conum" data-value="2"></i><b>(2)</b>
+  public longitude?: number; <i class="conum" data-value="2"></i><b>(2)</b>
+  public accuracy?: number; <i class="conum" data-value="2"></i><b>(2)</b>
+
+  async ngOnInit() {
+    await this.getLocation(); <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+
+  private async getLocation() { <i class="conum" data-value="4"></i><b>(4)</b>
+    try {
+      const position = await Geolocation.getCurrentPosition(); <i class="conum" data-value="5"></i><b>(5)</b>
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.accuracy = position.coords.accuracy;
+    } catch (error) {
+      console.error('Error al obtener la geolocalización:', error);
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Importación de la dependencia de Capacitor para el uso del Plugin <code>Geolocation</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Creación de propiedades para representar la latitud, la longitud y la precisión. Estas propiedades se inicializan con el valor <code>undefined</code>. Usar <code>?</code> simplifica el código y establece que la propiedad no tiene un valor inicial, sino que se asignará más tarde.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Llamada al método <code>getLocation()</code> al iniciar el componente. <code>ngOnInit()</code> no tiene que ser necesariamente <code>async</code>, pero en este caso lo hacemos porque queremos llamar a <code>await this.getLocation();</code> dentro de él.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Declaración del método <code>getLocation()</code> de forma asíncrona (<code>async</code>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>La ejecución del método se debe esperar hasta que finalice la ejecución de la operación <code>getCurrentPosition()</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Para poder ejecutar métodos de forma asíncrona se hace uso del patrón <code>async</code> / <code>await</code> (ver el siguiente <a href="https://blog.logrocket.com/async-await-in-typescript/">enlace</a>).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>En la plantilla del componente, realizaremos la siguiente modificación para mostrar los valores de la latitud y la longitud:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">  ...
+
+  &lt;div id="container"&gt;
+
+    &lt;ion-card&gt;
+      &lt;ion-card-header&gt;
+        &lt;ion-card-title&gt;Coordinates&lt;/ion-card-title&gt;
+      &lt;/ion-card-header&gt;
+      &lt;ion-card-content&gt;
+        &lt;ion-item&gt;Latitude: {{ latitude }}&lt;/ion-item&gt;
+        &lt;ion-item&gt;Longitude: {{ longitude }}&lt;/ion-item&gt;
+        &lt;ion-item&gt;Accuracy: {{ accuracy }}&lt;/ion-item&gt;
+      &lt;/ion-card-content&gt;
+    &lt;/ion-card&gt;
+
+  &lt;/div&gt;
+
+&lt;/ion-content&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Al guardar los cambios, la ejecución de la aplicación nos solicitará los permisos para que el navegador pueda obtener la localización de nuestro dispositivo.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utilización_de_la_cámara_del_dipositivo">3. Utilización de la cámara del dipositivo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>El plugin Camera de Capacitor requiere de la instalación de una librería adicional, que es PWA Elements (<a href="https://capacitorjs.com/docs/web/pwa-elements">enlace</a>). Para su correcto funcionamiento, debemos instalar las siguientes dependencias en el proyecto:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ npm install @ionic/pwa-elements
+$ npm install @capacitor/camera
+$ npx cap sync</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Adicionalmente, debemos modificar el archivo <code>src/main.ts</code> para hacer uso de PWA Elements:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>main.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { bootstrapApplication } from '@angular/platform-browser';
+import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
+import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
+
+import { routes } from './app/app.routes';
+import { AppComponent } from './app/app.component';
+
+import { defineCustomElements } from '@ionic/pwa-elements/loader'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+defineCustomElements(window); <i class="conum" data-value="2"></i><b>(2)</b>
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideIonicAngular(),
+    provideRouter(routes, withPreloading(PreloadAllModules)),
+  ],
+});</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Importación de la operación <code>defineCustomElements</code> de PWA Elements</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Ejecución de la operación <code>defineCustomElements</code> para permitir el uso de algunos plugins de Capacitor en el caso de PWAs</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para la utilización de la cámara, vamos a utilizar las funciones ofrecidas por la API Camera de Capacitor (<a href="https://capacitorjs.com/docs/apis/camera">enlace</a>).</p>
+</div>
+<div class="paragraph">
+<p>Modificaremos la definición del componente <code>home</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, inject, OnInit } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonFabButton, IonFab } from '@ionic/angular/standalone';
+import { Camera, CameraResultType } from '@capacitor/camera'; <i class="conum" data-value="1"></i><b>(1)</b>
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'; <i class="conum" data-value="2"></i><b>(2)</b>
+import { camera } from 'ionicons/icons'; <i class="conum" data-value="3"></i><b>(3)</b>
+import { addIcons } from 'ionicons'; <i class="conum" data-value="3"></i><b>(3)</b>
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonFab, IonFabButton],
+})
+export class HomePage  {
+
+  public photo?: SafeResourceUrl; <i class="conum" data-value="4"></i><b>(4)</b>
+
+  private sanitizer = inject(DomSanitizer); <i class="conum" data-value="5"></i><b>(5)</b>
+
+  constructor() {
+    addIcons({ camera }); <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+
+  public async takePicture(): Promise&lt;void&gt; { <i class="conum" data-value="6"></i><b>(6)</b>
+    try {
+      const image = await Camera.getPhoto({ <i class="conum" data-value="7"></i><b>(7)</b>
+        quality: 100,
+        allowEditing: false,
+        resultType: CameraResultType.Uri
+      });
+
+      if (image.webPath) {
+        this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image.webPath); <i class="conum" data-value="8"></i><b>(8)</b>
+      }
+    } catch (error) {
+      console.error('Error al capturar la foto:', error);
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Importación de los elementos necesarios para hacer uso de <code>Camera</code> de Capacitor</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Importación de <code>DomSanitizer</code> (<a href="https://angular.dev/api/platform-browser/DomSanitizer">enlace</a>) para confiar en la dirección de la foto aunque sea obtenida del dispositivo y de <code>SafeResourceUrl</code> (<a href="https://angular.dev/api/platform-browser/SafeResourceUrl">enlace</a>) para guardar la dirección de la foto</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Importación de iconos de para poder utilizar el icono de la cámara (<a href="https://ionicframework.com/docs/api/icon">enlace</a>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Propiedad para describir la dirección de la foto</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Inyección de <code>DomSanitizer</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Operación <code>takePicture</code> que se ejecuta de forma asíncrona</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Ejecución de <code>getPhoto</code> para obtener la foto del dispositivo. La ejecución de la operación <code>takePicture</code> se espera hasta que finaliza dicha ejecución</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Asignación de la dirección de la foto</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>En la plantilla del componente, realizaremos la siguiente modificación para mostrar un botón que nos permita obtener una foto desde la cámara del dispositivo:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">  &lt;div id="container"&gt;
+
+    &lt;img alt="Photo" [src]="photo"&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    &lt;ion-fab vertical="bottom" horizontal="center" slot="fixed"&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+      &lt;ion-fab-button (click)="takePicture()"&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+        &lt;ion-icon name="camera"&gt;&lt;/ion-icon&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+      &lt;/ion-fab-button&gt;
+    &lt;/ion-fab&gt;
+
+  &lt;/div&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Elemento HTML para mostrar una imagen cuyo origen está determinado por la dirección que define la propiedad <code>photo</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Contenedor de botones <code>fab</code> (Floating Action Buttons)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Botón vinculado a la operación <code>takePicture()</code> del componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Icono de una cámara</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Al ejecutar la aplicación, se nos solicitarán los permisos para que el navegador pueda acceder a la cámara de nuestro dispositivo.</p>
+</div>
+<div class="paragraph">
+<p>Al pulsar el botón, se ejecutará la operación <code>takePicture</code> para abrir el componente de la cámara que se encarga de realizar la operación <code>getPhoto</code>.</p>
+</div>
+<div class="paragraph">
+<p>Cuando seleccionemos una foto como válida (tic verde del componente de la cámara), continuará la ejecución del método <code>takePicture</code>, de forma que se actualizará el valor de la propiedad <code>photo</code> y se mostrará en la vista del componente. Se mostrará detrás del botón, por el tipo de botón especificado (FAB).</p>
+</div>
+<div class="paragraph">
+<p>Es necesario recordar que el despliegue de la aplicación en las plataformas iOS y Android requiere la realización de configuraciones adicionales. Para ello, se debe consultar la documentación del plugin Camera de Capacitor (<a href="https://capacitorjs.com/docs/apis/camera">enlace</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uso_otras_funcionalidades_nativas">4. Uso otras funcionalidades nativas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para profundizar en el uso de funcionalidades nativas en aplicaciones Ionic, se recomienda al menos probar el uso de:</p>
+</div>
+<div class="paragraph">
+<p>&#8201;&#8212;&#8201;<code>Storage</code> (<a href="https://capacitorjs.com/docs/guides/storage">enlace</a>), para almacenar datos en el dispositivo.</p>
+</div>
+<div class="paragraph">
+<p>&#8201;&#8212;&#8201;<code>Toast</code> (<a href="https://capacitorjs.com/docs/apis/toast">enlace</a>), para mostrar mensajes en la aplicación.</p>
+</div>
+<div class="paragraph">
+<p>&#8201;&#8212;&#8201;<code>Modals</code> (<a href="https://capacitorjs.com/docs/apis/modals">enlace</a>), para mostrar ventanas modales en la aplicación. Es aconsejable probar la visualización de un modal en la aplicación y compararla con la visualización de un <code>alert</code> o un <code>confirm</code> de Ionic, además de comparar la visualización obtenida en diferentes plataformas.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ejercicio_creación_de_una_aplicación_ionic_con_funciones_nativas">5. Ejercicio: Creación de una aplicación Ionic con funciones nativas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Como ejercicio, se debe crear una aplicación que tenga las siguientes características:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>El inicio de la aplicación muestra una página con un texto descriptivo (que resuma el funcionamiento de la aplicación) y dos botones que nos permite acceder a dos nuevas páginas.</p>
+</li>
+<li>
+<p>La primera nueva página tiene un botón para poder obtener una foto de la cámara del dispositivo.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Hasta que no se obtenga ninguna foto desde el dispositivo, se debe mostrar una imagen que describa que todavía no ha sido obtenida ninguna foto.</p>
+</li>
+<li>
+<p>Al obtenerse la foto, debe mostrarse dicha foto y debajo un texto que especifique la geolocalización (longitud y latitud) en la que se ha obtenido la foto.</p>
+</li>
+<li>
+<p>La información con la URI de la foto, la longitud y la latitud debe guardarse de forma persiste y de manera local.</p>
+</li>
+<li>
+<p>Las operaciones de la aplicación se deben ejecutar de forma correcta mediante el uso de servicios.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>La segunda nueva página muestra un listado de prueba con algunos elementos. Al realizar una interacción con el listado, debe mostrarse un mensaje que avise al usuario de que esa parte de la aplicación está "En construcción".</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-09 14:09:53 +0100
+Last updated 2025-03-11 14:19:43 +0100
 </div>
 </div>
 </body>
