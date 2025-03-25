@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.12">
+<meta name="author" content="Desarrollo de Aplicaciones Híbridas&#8201;&#8212;&#8201;Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL">
+<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+<title>Pruebas en aplicaciones Ionic</title>
+<style>
+@import url(http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.css);
+/* normalize.css v2.1.1 | MIT License | git.io/normalize */
+/* ========================================================================== HTML5 display definitions ========================================================================== */
+/** Correct `block` display not defined in IE 8/9. */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+/** Correct `inline-block` display not defined in IE 8/9. */
+audio, canvas, video { display: inline-block; }
+
+/** Prevent modern browsers from displaying `audio` without controls. Remove excess height in iOS 5 devices. */
+audio:not([controls]) { display: none; height: 0; }
+
+/** Address styling not present in IE 8/9. */
+[hidden] { display: none; }
+
+/* ========================================================================== Base ========================================================================== */
+/** 1. Prevent system color scheme's background color being used in Firefox, IE, and Opera. 2. Prevent system color scheme's text color being used in Firefox, IE, and Opera. 3. Set default font family to sans-serif. 4. Prevent iOS text size adjust after orientation change, without disabling user zoom. */
+html { background: #fff; /* 1 */ color: #000; /* 2 */ font-family: sans-serif; /* 3 */ -ms-text-size-adjust: 100%; /* 4 */ -webkit-text-size-adjust: 100%; /* 4 */ }
+
+/** Remove default margin. */
+body { margin: 0; }
+
+/* ========================================================================== Links ========================================================================== */
+/** Address `outline` inconsistency between Chrome and other browsers. */
+a:focus { outline: thin dotted; }
+
+/** Improve readability when focused and also mouse hovered in all browsers. */
+a:active, a:hover { outline: 0; }
+
+/* ========================================================================== Typography ========================================================================== */
+/** Address variable `h1` font-size and margin within `section` and `article` contexts in Firefox 4+, Safari 5, and Chrome. */
+h1 { font-size: 2em; margin: 0.67em 0; }
+
+/** Address styling not present in IE 8/9, Safari 5, and Chrome. */
+abbr[title] { border-bottom: 1px dotted; }
+
+/** Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome. */
+b, strong { font-weight: bold; }
+
+/** Address styling not present in Safari 5 and Chrome. */
+dfn { font-style: italic; }
+
+/** Address differences between Firefox and other browsers. */
+hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
+
+/** Address styling not present in IE 8/9. */
+mark { background: #ff0; color: #000; }
+
+/** Correct font family set oddly in Safari 5 and Chrome. */
+code, kbd, pre, samp { font-family: monospace, serif; font-size: 1em; }
+
+/** Improve readability of pre-formatted text in all browsers. */
+pre { white-space: pre-wrap; }
+
+/** Set consistent quote types. */
+q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+
+/** Address inconsistent and variable font size in all browsers. */
+small { font-size: 80%; }
+
+/** Prevent `sub` and `sup` affecting `line-height` in all browsers. */
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+
+sup { top: -0.5em; }
+
+sub { bottom: -0.25em; }
+
+/* ========================================================================== Embedded content ========================================================================== */
+/** Remove border when inside `a` element in IE 8/9. */
+img { border: 0; }
+
+/** Correct overflow displayed oddly in IE 9. */
+svg:not(:root) { overflow: hidden; }
+
+/* ========================================================================== Figures ========================================================================== */
+/** Address margin not present in IE 8/9 and Safari 5. */
+figure { margin: 0; }
+
+/* ========================================================================== Forms ========================================================================== */
+/** Define consistent border, margin, and padding. */
+fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
+
+/** 1. Correct `color` not being inherited in IE 8/9. 2. Remove padding so people aren't caught out if they zero out fieldsets. */
+legend { border: 0; /* 1 */ padding: 0; /* 2 */ }
+
+/** 1. Correct font family not being inherited in all browsers. 2. Correct font size not being inherited in all browsers. 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome. */
+button, input, select, textarea { font-family: inherit; /* 1 */ font-size: 100%; /* 2 */ margin: 0; /* 3 */ }
+
+/** Address Firefox 4+ setting `line-height` on `input` using `!important` in the UA stylesheet. */
+button, input { line-height: normal; }
+
+/** Address inconsistent `text-transform` inheritance for `button` and `select`. All other form control elements do not inherit `text-transform` values. Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+. Correct `select` style inheritance in Firefox 4+ and Opera. */
+button, select { text-transform: none; }
+
+/** 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio` and `video` controls. 2. Correct inability to style clickable `input` types in iOS. 3. Improve usability and consistency of cursor style between image-type `input` and others. */
+button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; /* 2 */ cursor: pointer; /* 3 */ }
+
+/** Re-set default cursor for disabled elements. */
+button[disabled], html input[disabled] { cursor: default; }
+
+/** 1. Address box sizing set to `content-box` in IE 8/9. 2. Remove excess padding in IE 8/9. */
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; /* 1 */ padding: 0; /* 2 */ }
+
+/** 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome. 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome (include `-moz` to future-proof). */
+input[type="search"] { -webkit-appearance: textfield; /* 1 */ -moz-box-sizing: content-box; -webkit-box-sizing: content-box; /* 2 */ box-sizing: content-box; }
+
+/** Remove inner padding and search cancel button in Safari 5 and Chrome on OS X. */
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+/** Remove inner padding and border in Firefox 4+. */
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+
+/** 1. Remove default vertical scrollbar in IE 8/9. 2. Improve readability and alignment in all browsers. */
+textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
+
+/* ========================================================================== Tables ========================================================================== */
+/** Remove most spacing between table cells. */
+table { border-collapse: collapse; border-spacing: 0; }
+
+*, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+html, body { font-size: 100%; }
+
+body { background: white; color: #222222; padding: 0; margin: 0; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; line-height: 1; position: relative; cursor: auto; }
+
+a:hover { cursor: pointer; }
+
+a:focus { outline: none; }
+
+img, object, embed { max-width: 100%; height: auto; }
+
+object, embed { height: 100%; }
+
+img { -ms-interpolation-mode: bicubic; }
+
+#map_canvas img, #map_canvas embed, #map_canvas object, .map_canvas img, .map_canvas embed, .map_canvas object { max-width: none !important; }
+
+.left { float: left !important; }
+
+.right { float: right !important; }
+
+.text-left { text-align: left !important; }
+
+.text-right { text-align: right !important; }
+
+.text-center { text-align: center !important; }
+
+.text-justify { text-align: justify !important; }
+
+.hide { display: none; }
+
+.antialiased, body { -webkit-font-smoothing: antialiased; }
+
+img { display: inline-block; vertical-align: middle; }
+
+textarea { height: auto; min-height: 50px; }
+
+select { width: 100%; }
+
+p.lead, .paragraph.lead > p, #preamble > .sectionbody > .paragraph:first-of-type p { font-size: 1.21875em; line-height: 1.6; }
+
+.subheader, #content #toctitle, .admonitionblock td.content > .title, .exampleblock > .title, .imageblock > .title, .videoblock > .title, .listingblock > .title, .literalblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, .sidebarblock > .title, .tableblock > .title, .verseblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title, .tableblock > caption { line-height: 1.4; color: #111111; font-weight: 300; margin-top: 0.2em; margin-bottom: 0.5em; }
+
+/* Typography resets */
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6, pre, form, p, blockquote, th, td { margin: 0; padding: 0; direction: ltr; }
+
+/* Default Link Styles */
+a { color: #ad141e; text-decoration: underline; line-height: inherit; }
+a:hover, a:focus { color: #ad141e; }
+a img { border: none; }
+
+/* Default paragraph styles */
+p { font-family: inherit; font-weight: normal; font-size: 1em; line-height: 1.5; margin-bottom: 1.25em; text-rendering: optimizeLegibility; }
+p aside { font-size: 0.875em; line-height: 1.35; font-style: italic; }
+
+/* Default header styles */
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; font-weight: normal; font-style: normal; color: #111111; text-rendering: optimizeLegibility; margin-top: 1em; margin-bottom: 0.5em; line-height: 1.2125em; }
+h1 small, h2 small, h3 small, #toctitle small, .sidebarblock > .content > .title small, h4 small, h5 small, h6 small { font-size: 60%; color: #5e5e5e; line-height: 0; }
+
+h1 { font-size: 2.125em; }
+
+h2 { font-size: 1.6875em; }
+
+h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.375em; }
+
+h4 { font-size: 1.125em; }
+
+h5 { font-size: 1.125em; }
+
+h6 { font-size: 1em; }
+
+hr { border: solid #dddddd; border-width: 1px 0 0; clear: both; margin: 1.25em 0 1.1875em; height: 0; }
+
+/* Helpful Typography Defaults */
+em, i { font-style: italic; line-height: inherit; }
+
+strong, b { font-weight: bold; line-height: inherit; }
+
+small { font-size: 60%; line-height: inherit; }
+
+code { font-family: "Andale Mono", "monotype.com", "Lucida Console", monospace; font-weight: normal; color: #222222; }
+
+/* Lists */
+ul, ol, dl { font-size: 1em; line-height: 1.5; margin-bottom: 1.25em; list-style-position: outside; font-family: inherit; }
+
+ul, ol { margin-left: 1.5em; }
+
+/* Unordered Lists */
+ul li ul, ul li ol { margin-left: 1.25em; margin-bottom: 0; font-size: 1em; /* Override nested font-size change */ }
+ul.square li ul, ul.circle li ul, ul.disc li ul { list-style: inherit; }
+ul.square { list-style-type: square; }
+ul.circle { list-style-type: circle; }
+ul.disc { list-style-type: disc; }
+ul.no-bullet { list-style: none; }
+
+/* Ordered Lists */
+ol li ul, ol li ol { margin-left: 1.25em; margin-bottom: 0; }
+
+/* Definition Lists */
+dl dt { margin-bottom: 0.3125em; font-weight: bold; }
+dl dd { margin-bottom: 1.25em; }
+
+/* Abbreviations */
+abbr, acronym { text-transform: uppercase; font-size: 90%; color: #222222; border-bottom: 1px dotted #dddddd; cursor: help; }
+
+abbr { text-transform: none; }
+
+/* Blockquotes */
+blockquote { margin: 0 0 1.25em; padding: 0.5625em 1.25em 0 1.1875em; border-left: 1px solid #dddddd; }
+blockquote cite { display: block; font-size: inherit; color: #555555; }
+blockquote cite:before { content: "\2014 \0020"; }
+blockquote cite a, blockquote cite a:visited { color: #555555; }
+
+blockquote, blockquote p { line-height: 1.5; color: #6f6f6f; }
+
+/* Microformats */
+.vcard { display: inline-block; margin: 0 0 1.25em 0; border: 1px solid #dddddd; padding: 0.625em 0.75em; }
+.vcard li { margin: 0; display: block; }
+.vcard .fn { font-weight: bold; font-size: 0.9375em; }
+
+.vevent .summary { font-weight: bold; }
+.vevent abbr { cursor: auto; text-decoration: none; font-weight: bold; border: none; padding: 0 0.0625em; }
+
+@media only screen and (min-width: 768px) { h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { line-height: 1.4; }
+  h1 { font-size: 2.75em; }
+  h2 { font-size: 2.3125em; }
+  h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.6875em; }
+  h4 { font-size: 1.4375em; } }
+/* Print styles.  Inlined to avoid required HTTP connection: www.phpied.com/delay-loading-your-print-css/ Credit to Paul Irish and HTML5 Boilerplate (html5boilerplate.com)
+*/
+.print-only { display: none !important; }
+
+@media print { * { background: transparent !important; color: #000 !important; /* Black prints faster: h5bp.com/s */ box-shadow: none !important; text-shadow: none !important; }
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; /* h5bp.com/t */ }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3, #toctitle, .sidebarblock > .content > .title { orphans: 3; widows: 3; }
+  h2, h3, #toctitle, .sidebarblock > .content > .title { page-break-after: avoid; }
+  .hide-on-print { display: none !important; }
+  .print-only { display: block !important; }
+  .hide-for-print { display: none !important; }
+  .show-for-print { display: inherit !important; } }
+/* Tables */
+table { background: white; margin-bottom: 1.25em; border: solid 1px #dddddd; }
+table thead, table tfoot { background: whitesmoke; font-weight: bold; }
+table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0.5em 0.625em 0.625em; font-size: inherit; color: #222222; text-align: left; }
+table tr th, table tr td { padding: 0.5625em 0.625em; font-size: inherit; color: #222222; }
+table tr.even, table tr.alt, table tr:nth-of-type(even) { background: #f9f9f9; }
+table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td { display: table-cell; line-height: 1.2; }
+
+.clearfix:before, .clearfix:after, .float-group:before, .float-group:after { content: " "; display: table; }
+.clearfix:after, .float-group:after { clear: both; }
+
+*:not(pre) > code { font-size: inherit; padding: 2px; white-space: nowrap; background-color: #eeeeee; border: 0 solid #dddddd; -webkit-border-radius: 0; border-radius: 0; text-shadow: none; }
+
+pre, pre > code { line-height: 1.5; color: white; font-family: Monaco, Consolas, "Courier New", Courier, Sans-serif; font-weight: normal; }
+
+kbd.keyseq { color: #555555; }
+
+kbd:not(.keyseq) { display: inline-block; color: #222222; font-size: 0.75em; line-height: 1.4; background-color: #F7F7F7; border: 1px solid #ccc; -webkit-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset; margin: -0.15em 0.15em 0 0.15em; padding: 0.2em 0.6em 0.2em 0.5em; vertical-align: middle; white-space: nowrap; }
+
+kbd kbd:first-child { margin-left: 0; }
+
+kbd kbd:last-child { margin-right: 0; }
+
+.menuseq, .menu { color: #090909; }
+
+p a > code:hover { color: #151515; }
+
+#header, #content, #footnotes, #footer { width: 100%; margin-left: auto; margin-right: auto; margin-top: 0; margin-bottom: 0; max-width: 62.5em; *zoom: 1; position: relative; padding-left: 0.9375em; padding-right: 0.9375em; }
+#header:before, #header:after, #content:before, #content:after, #footnotes:before, #footnotes:after, #footer:before, #footer:after { content: " "; display: table; }
+#header:after, #content:after, #footnotes:after, #footer:after { clear: both; }
+
+#header { margin-bottom: 2.5em; }
+#header > h1 { color: black; font-weight: normal; border-bottom: 1px solid #dddddd; margin-bottom: -28px; padding-bottom: 32px; }
+#header span { color: #6f6f6f; }
+#header #revnumber { text-transform: capitalize; }
+#header br { display: none; }
+#header br + span { padding-left: 3px; }
+#header br + span:before { content: "\2013 \0020"; }
+#header br + span.author { padding-left: 0; }
+#header br + span.author:before { content: ", "; }
+
+#toc { border-bottom: 1px solid #dddddd; padding-bottom: 1.25em; }
+#toc > ul { margin-left: 0.25em; }
+#toc ul.sectlevel0 > li > a { font-style: italic; }
+#toc ul.sectlevel0 ul.sectlevel1 { margin-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+#toc ul { list-style-type: none; }
+
+#toctitle { color: #111111; }
+
+@media only screen and (min-width: 1280px) { body.toc2 { padding-left: 20em; }
+  #toc.toc2 { position: fixed; width: 20em; left: 0; top: 0; border-right: 1px solid #dddddd; border-bottom: 0; z-index: 1000; padding: 1em; height: 100%; overflow: auto; }
+  #toc.toc2 #toctitle { margin-top: 0; }
+  #toc.toc2 > ul { font-size: .95em; }
+  #toc.toc2 ul ul { margin-left: 0; padding-left: 1.25em; }
+  #toc.toc2 ul.sectlevel0 ul.sectlevel1 { padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+  body.toc2.toc-right { padding-left: 0; padding-right: 20em; }
+  body.toc2.toc-right #toc.toc2 { border-right: 0; border-left: 1px solid #dddddd; left: auto; right: 0; } }
+#content #toc { border-style: solid; border-width: 1px; border-color: #d9d9d9; margin-bottom: 1.25em; padding: 1.25em; background: #f2f2f2; border-width: 0; -webkit-border-radius: 0; border-radius: 0; }
+#content #toc > :first-child { margin-top: 0; }
+#content #toc > :last-child { margin-bottom: 0; }
+#content #toc a { text-decoration: none; }
+
+#content #toctitle { font-weight: bold; font-family: "Helvetica Neue", "Helvetica", sans-serif; font-size: 1em; padding-left: 0.125em; }
+
+#footer { max-width: 100%; background-color: #222222; padding: 1.25em; }
+
+#footer-text { color: #dddddd; line-height: 1.35; }
+
+.sect1 { padding-bottom: 1.25em; }
+
+.sect1 + .sect1 { border-top: 1px solid #dddddd; }
+
+#content h1 > a.anchor, h2 > a.anchor, h3 > a.anchor, #toctitle > a.anchor, .sidebarblock > .content > .title > a.anchor, h4 > a.anchor, h5 > a.anchor, h6 > a.anchor { position: absolute; width: 1em; margin-left: -1em; display: block; text-decoration: none; visibility: hidden; text-align: center; font-weight: normal; }
+#content h1 > a.anchor:before, h2 > a.anchor:before, h3 > a.anchor:before, #toctitle > a.anchor:before, .sidebarblock > .content > .title > a.anchor:before, h4 > a.anchor:before, h5 > a.anchor:before, h6 > a.anchor:before { content: '\00A7'; font-size: .85em; vertical-align: text-top; display: block; margin-top: 0.05em; }
+#content h1:hover > a.anchor, #content h1 > a.anchor:hover, h2:hover > a.anchor, h2 > a.anchor:hover, h3:hover > a.anchor, #toctitle:hover > a.anchor, .sidebarblock > .content > .title:hover > a.anchor, h3 > a.anchor:hover, #toctitle > a.anchor:hover, .sidebarblock > .content > .title > a.anchor:hover, h4:hover > a.anchor, h4 > a.anchor:hover, h5:hover > a.anchor, h5 > a.anchor:hover, h6:hover > a.anchor, h6 > a.anchor:hover { visibility: visible; }
+#content h1 > a.link, h2 > a.link, h3 > a.link, #toctitle > a.link, .sidebarblock > .content > .title > a.link, h4 > a.link, h5 > a.link, h6 > a.link { color: #111111; text-decoration: none; }
+#content h1 > a.link:hover, h2 > a.link:hover, h3 > a.link:hover, #toctitle > a.link:hover, .sidebarblock > .content > .title > a.link:hover, h4 > a.link:hover, h5 > a.link:hover, h6 > a.link:hover { color: #040404; }
+
+.imageblock, .literalblock, .listingblock, .verseblock, .videoblock { margin-bottom: 1.25em; }
+
+.admonitionblock td.content > .title, .exampleblock > .title, .imageblock > .title, .videoblock > .title, .listingblock > .title, .literalblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, .sidebarblock > .title, .tableblock > .title, .verseblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title { text-align: left; font-weight: bold; }
+
+.tableblock > caption { text-align: left; font-weight: bold; white-space: nowrap; overflow: visible; max-width: 0; }
+
+table.tableblock #preamble > .sectionbody > .paragraph:first-of-type p { font-size: inherit; }
+
+.admonitionblock > table { border: 0; background: none; width: 100%; }
+.admonitionblock > table td.icon { text-align: center; width: 80px; }
+.admonitionblock > table td.icon img { max-width: none; }
+.admonitionblock > table td.icon .title { font-weight: bold; text-transform: uppercase; }
+.admonitionblock > table td.content { padding-left: 1.125em; padding-right: 1.25em; border-left: 1px solid #dddddd; color: #6f6f6f; }
+.admonitionblock > table td.content > :last-child > :last-child { margin-bottom: 0; }
+
+.exampleblock > .content { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: white; -webkit-border-radius: 0; border-radius: 0; }
+.exampleblock > .content > :first-child { margin-top: 0; }
+.exampleblock > .content > :last-child { margin-bottom: 0; }
+.exampleblock > .content h1, .exampleblock > .content h2, .exampleblock > .content h3, .exampleblock > .content #toctitle, .sidebarblock.exampleblock > .content > .title, .exampleblock > .content h4, .exampleblock > .content h5, .exampleblock > .content h6, .exampleblock > .content p { color: #333333; }
+.exampleblock > .content h1, .exampleblock > .content h2, .exampleblock > .content h3, .exampleblock > .content #toctitle, .sidebarblock.exampleblock > .content > .title, .exampleblock > .content h4, .exampleblock > .content h5, .exampleblock > .content h6 { line-height: 1; margin-bottom: 0.625em; }
+.exampleblock > .content h1.subheader, .exampleblock > .content h2.subheader, .exampleblock > .content h3.subheader, .exampleblock > .content .subheader#toctitle, .sidebarblock.exampleblock > .content > .subheader.title, .exampleblock > .content h4.subheader, .exampleblock > .content h5.subheader, .exampleblock > .content h6.subheader { line-height: 1.4; }
+
+.exampleblock.result > .content { -webkit-box-shadow: 0 1px 8px #d9d9d9; box-shadow: 0 1px 8px #d9d9d9; }
+
+.sidebarblock { border-style: solid; border-width: 1px; border-color: #d9d9d9; margin-bottom: 1.25em; padding: 1.25em; background: #f2f2f2; -webkit-border-radius: 0; border-radius: 0; }
+.sidebarblock > :first-child { margin-top: 0; }
+.sidebarblock > :last-child { margin-bottom: 0; }
+.sidebarblock h1, .sidebarblock h2, .sidebarblock h3, .sidebarblock #toctitle, .sidebarblock > .content > .title, .sidebarblock h4, .sidebarblock h5, .sidebarblock h6, .sidebarblock p { color: #333333; }
+.sidebarblock h1, .sidebarblock h2, .sidebarblock h3, .sidebarblock #toctitle, .sidebarblock > .content > .title, .sidebarblock h4, .sidebarblock h5, .sidebarblock h6 { line-height: 1; margin-bottom: 0.625em; }
+.sidebarblock h1.subheader, .sidebarblock h2.subheader, .sidebarblock h3.subheader, .sidebarblock .subheader#toctitle, .sidebarblock > .content > .subheader.title, .sidebarblock h4.subheader, .sidebarblock h5.subheader, .sidebarblock h6.subheader { line-height: 1.4; }
+.sidebarblock > .content > .title { color: #111111; margin-top: 0; line-height: 1.5; }
+
+.exampleblock > .content > :last-child > :last-child, .exampleblock > .content .olist > ol > li:last-child > :last-child, .exampleblock > .content .ulist > ul > li:last-child > :last-child, .exampleblock > .content .qlist > ol > li:last-child > :last-child, .sidebarblock > .content > :last-child > :last-child, .sidebarblock > .content .olist > ol > li:last-child > :last-child, .sidebarblock > .content .ulist > ul > li:last-child > :last-child, .sidebarblock > .content .qlist > ol > li:last-child > :last-child { margin-bottom: 0; }
+
+.literalblock > .content pre, .listingblock > .content pre { background: #333333; border-width: 0; padding: 10px; word-wrap: break-word; }
+.literalblock > .content pre.nowrap, .listingblock > .content pre.nowrap { overflow-x: auto; white-space: pre; word-wrap: normal; }
+.literalblock > .content pre > code, .listingblock > .content pre > code { display: block; }
+@media only screen { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.8em; } }
+@media only screen and (min-width: 768px) { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.9em; } }
+@media only screen and (min-width: 1280px) { .literalblock > .content pre, .listingblock > .content pre { font-size: 1em; } }
+
+.listingblock > .content { position: relative; }
+
+.listingblock:hover code[class*=" language-"]:before { text-transform: uppercase; font-size: 0.9em; color: #999; position: absolute; top: 0.375em; right: 0.375em; }
+
+.listingblock:hover code.asciidoc:before { content: "asciidoc"; }
+.listingblock:hover code.clojure:before { content: "clojure"; }
+.listingblock:hover code.css:before { content: "css"; }
+.listingblock:hover code.groovy:before { content: "groovy"; }
+.listingblock:hover code.html:before { content: "html"; }
+.listingblock:hover code.java:before { content: "java"; }
+.listingblock:hover code.javascript:before { content: "javascript"; }
+.listingblock:hover code.python:before { content: "python"; }
+.listingblock:hover code.ruby:before { content: "ruby"; }
+.listingblock:hover code.scss:before { content: "scss"; }
+.listingblock:hover code.xml:before { content: "xml"; }
+.listingblock:hover code.yaml:before { content: "yaml"; }
+
+.listingblock.terminal pre .command:before { content: attr(data-prompt); padding-right: 0.5em; color: #999; }
+
+.listingblock.terminal pre .command:not([data-prompt]):before { content: '$'; }
+
+table.pyhltable { border: 0; margin-bottom: 0; }
+
+table.pyhltable td { vertical-align: top; padding-top: 0; padding-bottom: 0; }
+
+table.pyhltable td.code { padding-left: .75em; padding-right: 0; }
+
+.highlight.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #dddddd; }
+
+.highlight.pygments .lineno { display: inline-block; margin-right: .25em; }
+
+table.pyhltable .linenodiv { background-color: transparent !important; padding-right: 0 !important; }
+
+.quoteblock { margin: 0 0 1.25em; padding: 0.5625em 1.25em 0 1.1875em; border-left: 1px solid #dddddd; }
+.quoteblock blockquote { margin: 0 0 1.25em 0; padding: 0 0 0.5625em 0; border: 0; }
+.quoteblock blockquote > .paragraph:last-child p { margin-bottom: 0; }
+.quoteblock .attribution { margin-top: -.25em; padding-bottom: 0.5625em; font-size: inherit; color: #555555; }
+.quoteblock .attribution br { display: none; }
+.quoteblock .attribution cite { display: block; margin-bottom: 0.625em; }
+
+table thead th, table tfoot th { font-weight: bold; }
+
+table.tableblock.grid-all { border-collapse: separate; border-spacing: 1px; -webkit-border-radius: 0; border-radius: 0; border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; }
+
+table.tableblock.frame-topbot, table.tableblock.frame-none { border-left: 0; border-right: 0; }
+
+table.tableblock.frame-sides, table.tableblock.frame-none { border-top: 0; border-bottom: 0; }
+
+table.tableblock td .paragraph:last-child p, table.tableblock td > p:last-child { margin-bottom: 0; }
+
+th.tableblock.halign-left, td.tableblock.halign-left { text-align: left; }
+
+th.tableblock.halign-right, td.tableblock.halign-right { text-align: right; }
+
+th.tableblock.halign-center, td.tableblock.halign-center { text-align: center; }
+
+th.tableblock.valign-top, td.tableblock.valign-top { vertical-align: top; }
+
+th.tableblock.valign-bottom, td.tableblock.valign-bottom { vertical-align: bottom; }
+
+th.tableblock.valign-middle, td.tableblock.valign-middle { vertical-align: middle; }
+
+p.tableblock.header { color: #222222; font-weight: bold; }
+
+td > div.verse { white-space: pre; }
+
+ol { margin-left: 1.75em; }
+
+ul li ol { margin-left: 1.5em; }
+
+dl dd { margin-left: 1.125em; }
+
+dl dd:last-child, dl dd:last-child > :last-child { margin-bottom: 0; }
+
+ol > li p, ul > li p, ul dd, ol dd, .olist .olist, .ulist .ulist, .ulist .olist, .olist .ulist { margin-bottom: 0.625em; }
+
+ul.unstyled, ol.unnumbered, ul.checklist, ul.none { list-style-type: none; }
+
+ul.unstyled, ol.unnumbered, ul.checklist { margin-left: 0.625em; }
+
+ul.checklist li > p:first-child > i[class^="icon-check"]:first-child, ul.checklist li > p:first-child > input[type="checkbox"]:first-child { margin-right: 0.25em; }
+
+ul.checklist li > p:first-child > input[type="checkbox"]:first-child { position: relative; top: 1px; }
+
+ul.inline { margin: 0 auto 0.625em auto; margin-left: -1.375em; margin-right: 0; padding: 0; list-style: none; overflow: hidden; }
+ul.inline > li { list-style: none; float: left; margin-left: 1.375em; display: block; }
+ul.inline > li > * { display: block; }
+
+.unstyled dl dt { font-weight: normal; font-style: normal; }
+
+ol.arabic { list-style-type: decimal; }
+
+ol.decimal { list-style-type: decimal-leading-zero; }
+
+ol.loweralpha { list-style-type: lower-alpha; }
+
+ol.upperalpha { list-style-type: upper-alpha; }
+
+ol.lowerroman { list-style-type: lower-roman; }
+
+ol.upperroman { list-style-type: upper-roman; }
+
+ol.lowergreek { list-style-type: lower-greek; }
+
+.hdlist > table, .colist > table { border: 0; background: none; }
+.hdlist > table > tbody > tr, .colist > table > tbody > tr { background: none; }
+
+td.hdlist1 { padding-right: .8em; font-weight: bold; }
+
+td.hdlist1, td.hdlist2 { vertical-align: top; }
+
+.literalblock + .colist, .listingblock + .colist { margin-top: -0.5em; }
+
+.colist > table tr > td:first-of-type { padding: 0 .8em; line-height: 1; }
+.colist > table tr > td:last-of-type { padding: 0.25em 0; }
+
+.qanda > ol > li > p > em:only-child { color: #96111a; }
+
+.thumb, .th { line-height: 0; display: inline-block; border: solid 4px white; -webkit-box-shadow: 0 0 0 1px #dddddd; box-shadow: 0 0 0 1px #dddddd; }
+
+.imageblock.left, .imageblock[style*="float: left"] { margin: 0.25em 0.625em 1.25em 0; }
+.imageblock.right, .imageblock[style*="float: right"] { margin: 0.25em 0 1.25em 0.625em; }
+.imageblock > .title { margin-bottom: 0; }
+.imageblock.thumb, .imageblock.th { border-width: 6px; }
+.imageblock.thumb > .title, .imageblock.th > .title { padding: 0 0.125em; }
+
+.image.left, .image.right { margin-top: 0.25em; margin-bottom: 0.25em; display: inline-block; line-height: 0; }
+.image.left { margin-right: 0.625em; }
+.image.right { margin-left: 0.625em; }
+
+a.image { text-decoration: none; }
+
+span.footnote, span.footnoteref { vertical-align: super; font-size: 0.875em; }
+span.footnote a, span.footnoteref a { text-decoration: none; }
+
+#footnotes { padding-top: 0.75em; padding-bottom: 0.75em; margin-bottom: 0.625em; }
+#footnotes hr { width: 20%; min-width: 6.25em; margin: -.25em 0 .75em 0; border-width: 1px 0 0 0; }
+#footnotes .footnote { padding: 0 0.375em; line-height: 1.3; font-size: 0.875em; margin-left: 1.2em; text-indent: -1.2em; margin-bottom: .2em; }
+#footnotes .footnote a:first-of-type { font-weight: bold; text-decoration: none; }
+#footnotes .footnote:last-of-type { margin-bottom: 0; }
+
+#content #footnotes { margin-top: -0.625em; margin-bottom: 0; padding: 0.75em 0; }
+
+.gist .file-data > table { border: none; background: #fff; width: 100%; margin-bottom: 0; }
+.gist .file-data > table td.line-data { width: 99%; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+.big { font-size: larger; }
+
+.small { font-size: smaller; }
+
+.underline { text-decoration: underline; }
+
+.overline { text-decoration: overline; }
+
+.line-through { text-decoration: line-through; }
+
+.aqua { color: #00bfbf; }
+
+.aqua-background { background-color: #00fafa; }
+
+.black { color: black; }
+
+.black-background { background-color: black; }
+
+.blue { color: #0000bf; }
+
+.blue-background { background-color: #0000fa; }
+
+.fuchsia { color: #bf00bf; }
+
+.fuchsia-background { background-color: #fa00fa; }
+
+.gray { color: #606060; }
+
+.gray-background { background-color: #7d7d7d; }
+
+.green { color: #006000; }
+
+.green-background { background-color: #007d00; }
+
+.lime { color: #00bf00; }
+
+.lime-background { background-color: #00fa00; }
+
+.maroon { color: #600000; }
+
+.maroon-background { background-color: #7d0000; }
+
+.navy { color: #000060; }
+
+.navy-background { background-color: #00007d; }
+
+.olive { color: #606000; }
+
+.olive-background { background-color: #7d7d00; }
+
+.purple { color: #600060; }
+
+.purple-background { background-color: #7d007d; }
+
+.red { color: #bf0000; }
+
+.red-background { background-color: #fa0000; }
+
+.silver { color: #909090; }
+
+.silver-background { background-color: #bcbcbc; }
+
+.teal { color: #006060; }
+
+.teal-background { background-color: #007d7d; }
+
+.white { color: #bfbfbf; }
+
+.white-background { background-color: #fafafa; }
+
+.yellow { color: #bfbf00; }
+
+.yellow-background { background-color: #fafa00; }
+
+span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
+
+.admonitionblock td.icon [class^="icon-"]:before { font-size: 2.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); cursor: default; }
+.admonitionblock td.icon .icon-note:before { content: "\f05a"; color: #ad141e; color: #820f16; }
+.admonitionblock td.icon .icon-tip:before { content: "\f0eb"; text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8); color: #111; }
+.admonitionblock td.icon .icon-warning:before { content: "\f071"; color: #bf6900; }
+.admonitionblock td.icon .icon-caution:before { content: "\f06d"; color: #bf3400; }
+.admonitionblock td.icon .icon-important:before { content: "\f06a"; color: #bf0000; }
+
+.conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 20px; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -2px; letter-spacing: -1px; }
+.conum * { color: white !important; }
+.conum + b { display: none; }
+.conum:after { content: attr(data-value); }
+.conum:not([data-value]):empty { display: none; }
+
+#toc a {
+  text-decoration: none;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Pruebas en aplicaciones Ionic</h1>
+<div class="details">
+<span id="author" class="author">Desarrollo de Aplicaciones Híbridas&#8201;&#8212;&#8201;Máster en Ingeniería Informática&#8201;&#8212;&#8201;UAL</span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Tabla de contenidos</div>
+<ul class="sectlevel1">
+<li><a href="#_tipos_de_pruebas_en_aplicaciones_híbridas">1. Tipos de pruebas en aplicaciones híbridas</a>
+<ul class="sectlevel2">
+<li><a href="#_pruebas_unitarias">1.1. Pruebas unitarias</a></li>
+<li><a href="#_pruebas_end_to_end">1.2. Pruebas end-to-end</a></li>
+</ul>
+</li>
+<li><a href="#_uso_de_jasmine_y_karma_para_la_ejecución_de_pruebas_unitarias">2. Uso de Jasmine y Karma para la ejecución de pruebas unitarias</a>
+<ul class="sectlevel2">
+<li><a href="#_prueba_de_servicios_y_proveedores_de_servicios">2.1. Prueba de servicios y proveedores de servicios</a></li>
+<li><a href="#_prueba_de_componentes">2.2. Prueba de componentes</a></li>
+<li><a href="#_ejecución_de_las_pruebas_unitarias">2.3. Ejecución de las pruebas unitarias</a></li>
+</ul>
+</li>
+<li><a href="#_uso_de_cypress_para_la_ejecución_de_pruebas_unitarias">3. Uso de Cypress para la ejecución de pruebas unitarias</a></li>
+<li><a href="#_uso_de_cypress_para_la_ejecución_de_pruebas_e2e">4. Uso de Cypress para la ejecución de pruebas E2E</a></li>
+<li><a href="#_ejercicio_realización_de_pruebas_unitarias_y_e2e_en_una_aplicación_ionic">5. Ejercicio: Realización de pruebas unitarias y E2E en una aplicación Ionic</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_tipos_de_pruebas_en_aplicaciones_híbridas">1. Tipos de pruebas en aplicaciones híbridas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Al igual que en el desarrollo de cualquier software, una aplicación híbrida debe ser sometida durante su desarrollo a un proceso de pruebas, preferiblemente, mediante una aproximación de integración continua que favorezca un desarrollo ágil y flexible.</p>
+</div>
+<div class="paragraph">
+<p>Entre los diferentes tipos de pruebas que podemos ejecutar sobre nuestras aplicaciones híbridas se encuentran:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pruebas unitarias: se realizan sobre cada componente desarrollado para probar pequeñas unidades de código que están aislados de otras partes o subsistemas de la aplicación.</p>
+</li>
+<li>
+<p>Pruebas de integración: se realizan para probar el comportamiento de dos o más componentes que tienen algún tipo de relación durante la ejecución de cierta funcionalidad.</p>
+</li>
+<li>
+<p>Pruebas de interfaz de usuario o end-to-end (E2E): se realizan desde el front-end y con el objetivo de satisfacer las necesidades de negocio de dicho front-end. Para ello, se intenta simular la interacción de un usuario que hace uso de la aplicación, evaluando los resultados obtenidos (lo que debe incluir una parte de la evaluación de la experiencia del usuario).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En nuestro caso, vamos a hacer uso de tests E2E tanto para realizar pruebas de integración entre varios componentes como para probar funcionalidades que afecten a procesos de negocio de todo el sistema.</p>
+</div>
+<div class="paragraph">
+<p>Para más información, se recomienda acceder a la documentación de Ionic sobre la realización de pruebas (<a href="https://ionicframework.com/docs/angular/testing">enlace</a>).</p>
+</div>
+<div class="sect2">
+<h3 id="_pruebas_unitarias">1.1. Pruebas unitarias</h3>
+<div class="paragraph">
+<p>Las pruebas unitarias tienen el objetivo de probar pequeñas unidades de código de forma aislada. La propia naturaleza de las aplicaciones híbridas desarrolladas con Ionic y Angular favorecen este tipo de pruebas debido a su construcción modular.</p>
+</div>
+<div class="paragraph">
+<p>La escritura adicional del código para la ejecución de pruebas unitarias favorece no solo la verificación del código en el momento que se está desarrollando, sino que también sirve para la ejecución de pruebas de regresión cuando se realiza alguna modificación en otras partes de la aplicación. De forma adicional, el código de las pruebas unitarias sirve como parte de la documentación del software, al describir cuál es la funcionalidad que se quiere obtener al ejecutar la aplicación.</p>
+</div>
+<div class="paragraph">
+<p>Para la ejecución de las pruebas unitarias, vamos a hacer uso de Cypress (<a href="https://www.cypress.io/">enlace</a>), aunque antes revisaremos cómo poder llevar a cabo este tipo de pruebas con Jasmine (<a href="https://jasmine.github.io/">enlace</a>) y Karma (<a href="https://karma-runner.github.io/latest/index.html">enlace</a>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pruebas_end_to_end">1.2. Pruebas end-to-end</h3>
+<div class="paragraph">
+<p>Las pruebas E2E se centran en detectar aquellos errores que ponen en peligro los objetivos de negocio de una aplicación híbrida, tratando de poner de manifiesto errores ocultos que no son detectados por las pruebas unitarias, errores generados por una mala definición del flujo funcional o errores que provienen de la comunicación entre partes o subsistemas de la aplicación.</p>
+</div>
+<div class="paragraph">
+<p>Mediante este tipo de pruebas, se puede simular la interacción de un ratón, o de un teclado para generar eventos que afecten a la aplicación. También se puede comprobar si son visibles algunos elementos de la vista o determinar si la posición es correcta. Se pueden validar si están disponibles algunas acciones, si el tiempo de respuesta es el correcto o si otras medidas de rendimiento son adecuadas.</p>
+</div>
+<div class="paragraph">
+<p>Las herramientas de pruebas E2E suelen hacer uso de tecnologías basadas en Javascript para poder simular la interacción que el usuario lleva a cabo mediante el navegador web en el que se ejecuta la aplicación híbrida.</p>
+</div>
+<div class="paragraph">
+<p>Para la ejecución de las pruebas E2E, vamos a hacer uso de Cypress (<a href="https://www.cypress.io/">enlace</a>), aunque revisaremos antes cómo se llevaban a cabo este tipo de pruebas mediante el uso de Protractor (<a href="https://www.protractortest.org/">enlace</a>). Ambas son herramientas que nos permiten simular el comportamiento de una aplicación mediante la ejecución de los tests en un navegador a través de un controlador de dicho navegador web.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uso_de_jasmine_y_karma_para_la_ejecución_de_pruebas_unitarias">2. Uso de Jasmine y Karma para la ejecución de pruebas unitarias</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para la ejecución de las pruebas unitarias, Jasmine se utiliza para la implementación de los tests, mientras que Karma se usa para poder crear el entorno y contexto de ejecución que permitan llevar a cabo dichas pruebas.</p>
+</div>
+<div class="paragraph">
+<p>Debemos tener en cuenta que la sintaxis de las pruebas en Jasmine se basa en las siguientes operaciones:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>describe</code>: equivalente a una colección (suite) de pruebas.</p>
+</li>
+<li>
+<p><code>it</code>: equivalente a una prueba específica (test) que debe ser contenida por una colección de pruebas. El uso de "it" y el nombre otorgado a la prueba deben favorecer la interpretación de dicha prueba. Por ejemplo <code>it("should be created", &#8230;&#8203;);</code> es la cabecera de una prueba cuyo objetivo es verificar que un elemento debería ser creado correctamente.</p>
+</li>
+<li>
+<p><code>expect</code>: equivalente a una comprobación o aserción (assert) que debe ser contenida por una prueba. El tipo de comprobaciones (matchers) que pueden realizarse son diversas, incluyendo la comprobación de un valor concreto, si es verdadero o falso, o si un valor es nulo, entre otros posibles ejemplos (ver <a href="https://jasmine.github.io/api/5.6/matchers">enlace</a>).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Aunque la construcción de las pruebas es similar para cada elemento de una aplicación Ionic, vamos a distinguir cómo se construyen los tests para el caso de los servicios y cómo deben implementarse las pruebas en el caso de los componentes.</p>
+</div>
+<div class="sect2">
+<h3 id="_prueba_de_servicios_y_proveedores_de_servicios">2.1. Prueba de servicios y proveedores de servicios</h3>
+<div class="paragraph">
+<p>Para analizar la prueba unitaria de servicios, crearemos una aplicación Ionic vacía a partir de la plantilla <code>blank</code> y generaremos un nuevo servicio llamado <code>generate-text</code> con la siguiente implementación:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>services/generate-text.service.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GenerateTextService {
+
+  public words: string[] = [ <i class="conum" data-value="1"></i><b>(1)</b>
+    "This",
+    "is",
+    "an",
+    "example",
+    "of",
+    "service",
+    "for",
+    "DAH"
+  ];
+
+  constructor() { }
+
+  getWords() {
+    return this.words;
+  }
+
+  getRandomWord() {
+    return this.words[this.getRandomInt(0, this.words.length - 1)];
+  }
+
+  getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Lista con palabras de ejemplo</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para la prueba de este servicio, vamos a modificar la implementación del archivo de pruebas <code>generate-text.service.spec.ts</code> que se genera de forma automática:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>services/generate-text.service.spec.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { TestBed } from '@angular/core/testing';
+
+import { GenerateTextService } from './generate-text.service';
+
+describe('GenerateTextService', () =&gt; {
+  let service: GenerateTextService; <i class="conum" data-value="1"></i><b>(1)</b>
+
+  beforeEach(() =&gt; { <i class="conum" data-value="2"></i><b>(2)</b>
+    TestBed.configureTestingModule({}); <i class="conum" data-value="3"></i><b>(3)</b>
+    service = TestBed.inject(GenerateTextService);
+  });
+
+  it('should be created', () =&gt; { <i class="conum" data-value="4"></i><b>(4)</b>
+    expect(service).toBeTruthy();
+  });
+
+  it("should do nothing", () =&gt; { <i class="conum" data-value="5"></i><b>(5)</b>
+    expect(true).toBeTruthy();
+    expect(1+1).toBe(2);
+    expect(2*3).toBe(6);
+  });
+
+  it("should return a non-empty array", () =&gt; { <i class="conum" data-value="6"></i><b>(6)</b>
+    let result = service.getWords();
+    expect(Array.isArray(result)).toBeTruthy();
+    expect(result.length).toBeGreaterThan(0);
+
+  });
+
+  it("should return a random word as a string", () =&gt; { <i class="conum" data-value="7"></i><b>(7)</b>
+    expect(typeof service.getRandomWord()).toBe("string");
+  });
+
+  it("should have 'DAH' and 'service' in the list of words", () =&gt; { <i class="conum" data-value="8"></i><b>(8)</b>
+    let result = service.getWords();
+    expect(result).toContain("DAH");
+    expect(result).toContain("service");
+  });
+});</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Variable para acceder al servicio y poder ejecutar sus funciones</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Código ejecutado antes de la realización de las pruebas</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Configuración del entorno de pruebas</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Comprobación de si el servicio ha sido creado</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Comprobación de operaciones de ejemplo que no afectan a la implementación del servicio</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Comprobación del tipo y tamaño de la lista de palabras</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Comprobación del tipo de la palabra devuelta por el servicio</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Comprobación de que la lista de palabras contiene dos elementos concretos</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prueba_de_componentes">2.2. Prueba de componentes</h3>
+<div class="paragraph">
+<p>Para analizar la prueba unitaria de un componente, vamos a modificar el componente <code>home</code> creado:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home/home.page.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, inject } from '@angular/core';
+import { GenerateTextService } from '../services/generate-text.service';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  imports: [FormsModule, IonicModule, RouterLink]
+})
+export class HomePage {
+
+  public title : string = "Home Pageeeee";  <i class="conum" data-value="1"></i><b>(1)</b>
+  public word : string = "initial word";  <i class="conum" data-value="2"></i><b>(2)</b>
+
+  private testservice = inject(GenerateTextService);
+
+  getWord() {  <i class="conum" data-value="3"></i><b>(3)</b>
+    this.word = this.testservice.getRandomWord();
+  }
+
+  changeTitle(title: string) { <i class="conum" data-value="4"></i><b>(4)</b>
+    this.title = title;
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Título para ser mostrado en la vista</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Palabra que será mostrada en la vista</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Uso del servicio para obtener una nueva palabra aleatoria</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Función para cambiar el título del componente</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.html</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ion-header [translucent]="true"&gt;
+  &lt;ion-toolbar&gt;
+    &lt;ion-title&gt;
+      {{title}} <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content&gt;
+  &lt;ion-item id="item-input-text"&gt;
+    &lt;ion-input type="text" [(ngModel)]="word"&gt;&lt;/ion-input&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;/ion-item&gt;
+  &lt;ion-button expand="full" (click)="getWord()"&gt;Change the word&lt;/ion-button&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+&lt;/ion-content&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Título del componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Palabra mostrada</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Botón para cambiar la palabra mostrada</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>La prueba de componentes requiere la realización de comprobaciones tanto en la clase TypeScript que lo define, como en la plantilla HTML. Para ello, se hace uso de un entorno de pruebas que incluye los diferentes elementos (módulos, componentes, servicios, etc.) requeridos durante la ejecución de dicho componente. Este entorno de pruebas recibe el nombre de <code>TestBed</code>.</p>
+</div>
+<div class="paragraph">
+<p>Mientras que se realiza la prueba de este componente, el acceso al mismo se realiza a través de un manejador (fixture) que permite hacer referencia a una instancia de dicho componente (<code>fixture.componentInstance</code>). Para acceder a los elementos del DOM, se hará uso de <code>fixture.nativeElement</code>.</p>
+</div>
+<div class="paragraph">
+<p>Para realizar pruebas en el componente <code>home</code>, modificaremos el archivo <code>home.page.spec.ts</code> incluyendo un conjunto de test que realizan verificaciones sobre diferentes elementos de dicho componente:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>home.page.spec.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { DebugElement } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { IonicModule } from '@ionic/angular';
+import { HomePage } from './home.page';
+
+describe('HomePage', () =&gt; {
+  let component: HomePage; <i class="conum" data-value="1"></i><b>(1)</b>
+  let fixture: ComponentFixture&lt;HomePage&gt<i class="conum" data-value="2"></i><b>(2)</b>
+  let de: DebugElement; <i class="conum" data-value="3"></i><b>(3)</b>
+  let el: HTMLElement; <i class="conum" data-value="4"></i><b>(4)</b>
+
+  beforeEach(waitForAsync(() =&gt; {
+    TestBed.configureTestingModule({ <i class="conum" data-value="5"></i><b>(5)</b>
+      imports: [IonicModule.forRoot(), HomePage]
+    }).compileComponents(); <i class="conum" data-value="6"></i><b>(6)</b>
+
+    fixture = TestBed.createComponent(HomePage); <i class="conum" data-value="7"></i><b>(7)</b>
+    component = fixture.componentInstance; <i class="conum" data-value="8"></i><b>(8)</b>
+    fixture.detectChanges(); <i class="conum" data-value="9"></i><b>(9)</b>
+  }));
+
+  afterEach(() =&gt; { <i class="conum" data-value="10"></i><b>(10)</b>
+    fixture.destroy();
+    component = {} as HomePage;
+  })
+
+  it('should create', () =&gt; {
+    expect(component).toBeTruthy();
+  });
+
+  it('initialize the component with a specific title', () =&gt; {
+    expect(component['title']).toEqual('Home Page'); <i class="conum" data-value="11"></i><b>(11)</b>
+  });
+
+  it('can set the title to a supplied value', () =&gt; {
+    de = fixture.debugElement.query(By.css('ion-title')); <i class="conum" data-value="12"></i><b>(12)</b>
+    el = de.nativeElement;
+
+    component.changeTitle('New Title for Home Page'); <i class="conum" data-value="13"></i><b>(13)</b>
+    fixture.detectChanges();
+    expect(component['title']).toEqual('New Title for Home Page'); <i class="conum" data-value="14"></i><b>(14)</b>
+    expect(el.textContent).toContain('New Title for Home Page');
+  });
+
+});</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Declaración del componente para utilizarlo en todo el test</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Manejador del Componente con información adicional para su prueba</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Manejador de un elemento del componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Manejador de la vista (estructura HTML) de un elemento del componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Configuración del entorno para las pruebas</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Compilación de los elementos incluidos en el entorno para las pruebas</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Creación del del componente para su prueba (manejador del componente con información adicional, i.e., fixture)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Instancia del componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Habilitación de la detección de cambios en el componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>Parte del código que se ejecuta después de los tests</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>Acceso a la propiedad <code>title</code> del componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>Acceso a un elemento del DOM cuyo estilo contenga la etiqueta <code>ion-title</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="13"></i><b>13</b></td>
+<td>Operación para cambiar el título</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="14"></i><b>14</b></td>
+<td>Comprobación del nuevo valor del título</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ejecución_de_las_pruebas_unitarias">2.3. Ejecución de las pruebas unitarias</h3>
+<div class="paragraph">
+<p>Para la ejecución de las pruebas unitarias de la aplicación, debemos ejecutar el siguiente comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ npm test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Como resultado, se desplegará un servidor de Karma para ejecutar y visualizar el resultado de las pruebas realizadas:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/test.png" alt="test" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Si alguna de las pruebas falla, se nos mostrará información sobre la causa que ha provocado el fallo:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/test-fail.png" alt="test-fail" width="800">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uso_de_cypress_para_la_ejecución_de_pruebas_unitarias">3. Uso de Cypress para la ejecución de pruebas unitarias</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cypress es una herramienta que permite la automatización de pruebas de extremo a extremo (E2E) y de integración. Además, permite la realización de pruebas unitarias. Para la ejecución de pruebas unitarias con Cypress, se debe instalar la dependencia en el proyecto:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ npm install --save-dev cypress</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez instalada, se puede ejecutar la herramienta con el siguiente comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ npx cypress open</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En la ventana de configuración que se abre, seleccionaremos la opción <code>Component Testing</code>. A continuación, debemos seleccionar el framework de desarrollo utilizado para el front-end. En este caso, seleccionaremos <code>Angular</code> y avanzaremos en la configuración mediante <code>Next step</code>. Se nos informará sobre las dependencias necesarias y seleccionaremos <code>Continue</code>. Finalmente, se nos mostrará una lista de los archivos de configuración de Cypress que existen en el proyecto. Seleccionamos <code>Continue</code> y en la siguiente ventana podemos seleccionar el navegador en el que se ejecutarán las pruebas.</p>
+</div>
+<div class="paragraph">
+<p>Si ocurre un error debido a la ruta de la aplicación, se debe modificar el archivo <code>cypress.config.ts</code> para configurar a mano la ruta:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>import { defineConfig } from "cypress";
+
+export default defineConfig({
+  component: {
+    devServer: {
+      framework: 'angular',
+      bundler: 'webpack',
+      options: {
+        projectConfig: {
+          root: './',
+          sourceRoot: 'src',
+          buildOptions: {
+            outputPath: 'dist/browser',
+          }
+        }
+      }
+    },
+    specPattern: "**/*.cy.ts",
+  },
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez seleccionado el navegador, podemos crear las pruebas unitarias que deseemos mediante la selección de <code>New spec</code>.</p>
+</div>
+<div class="paragraph">
+<p>Crearemos una prueba para el componente <code>home</code> que compruebe que el componente ha sido creado correctamente y que el título del componente es el esperado. Además, en dicha prueba, también comprobaremos que el componente contiene un botón que permite cambiar el título del componente. Finalmente, también incluiremos las pruebas relacionadas con el servicio <code>generate-text</code> que hemos creado anteriormente y que se inyecta en el componente <code>home</code>.</p>
+</div>
+<div class="paragraph">
+<p>Para ello, crearemos un archivo (spec) indicando la ruta <code>src\app\home\home.page.cy.ts</code> y seleccionando <code>Create spec</code>. El archivo encargado de la prueba del componente <code>home</code> tendrá el siguiente contenido:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>src/app/home/home.page.cy.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { HomePage } from 'src/app/home/home.page';
+
+describe('HomePage', () =&gt; {
+
+  it('should create', () =&gt; { <i class="conum" data-value="1"></i><b>(1)</b>
+    cy.mount(HomePage).then(wrapper =&gt; {
+      expect(wrapper.component).not.to.be.undefined;
+    });
+  });
+
+  it('initialize the component with a specific title', () =&gt; { <i class="conum" data-value="2"></i><b>(2)</b>
+    cy.mount(HomePage).then(wrapper =&gt; {
+      expect(wrapper.component.title).to.equal('Home Page');
+    });
+  });
+
+  it('can set the title to a supplied value', () =&gt; { <i class="conum" data-value="3"></i><b>(3)</b>
+    cy.mount(HomePage).then(wrapper =&gt; {
+      wrapper.component.changeTitle('New Title');
+      expect(wrapper.component.title).to.equal('New Title');  <i class="conum" data-value="4"></i><b>(4)</b>
+    });
+    cy.get('ion-title').should('contain', 'Home Page'); <i class="conum" data-value="5"></i><b>(5)</b>
+  });
+
+  it('initialize the component with a specific word', () =&gt; { <i class="conum" data-value="6"></i><b>(6)</b>
+    cy.mount(HomePage).then(wrapper =&gt; {
+      expect(wrapper.component.word).to.equal('initial word');
+    });
+  });
+
+  it('can get a random word', () =&gt; { <i class="conum" data-value="7"></i><b>(7)</b>
+    cy.mount(HomePage).then(wrapper =&gt; {
+      wrapper.component.getWord();
+      expect(wrapper.component.word).not.to.equal('initial word');
+    });
+  });
+
+  it("has a GenerateTextService that should return a non-empty array", () =&gt; { <i class="conum" data-value="8"></i><b>(8)</b>
+    cy.mount(HomePage).then(wrapper =&gt; {
+      expect(wrapper.component.testservice.words).to.be.an('array').that.is.not.empty;
+    });
+  });
+
+  it("has a GenerateTextService that should return a random word", () =&gt; { <i class="conum" data-value="9"></i><b>(9)</b>
+    cy.mount(HomePage).then(wrapper =&gt; {
+      expect(wrapper.component.testservice.getRandomWord()).to.be.a('string');
+    });
+  });
+
+  it("has a GenerateTextService that should have 'DAH' and 'service' in the list of words", () =&gt; { <i class="conum" data-value="10"></i><b>(10)</b>
+    cy.mount(HomePage).then(wrapper =&gt; {
+      let words = wrapper.component.testservice.words;
+      expect(words).to.include('DAH');
+      expect(words).to.include('service');
+    });
+  });
+
+})</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>El componente se ha creado correctamente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>El título del componente es el esperado</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>El componente tiene una operación para cambiar el título</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Comprobación del nuevo título del componente</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Comprobación del título del componente en la vista</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>El componente se ha creado con una palabra inicial</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>El componente tiene una operación para obtener una nueva palabra de forma aleatoria entre un array de palabras. Dicha palabra no es la inicial.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>El componente tiene un servicio que devuelve un array de palabras no vacío</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>El componente tiene un servicio que devuelve una palabra de forma aleatoria que es de tipo string</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>El componente tiene un servicio que devuelve un array de palabras que contiene dos palabras concretas</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para ejecutar las pruebas unitarias con Cypress, debemos ejecutar el archivo de pruebas (<code>spec</code>) creado haciendo clic en él en la ventana de Cypress. Como resultado, se abrirá el navegador para llevar a cabo la interacción implementada. Al finalizar la realización de las pruebas, se nos mostrará un resumen de la ejecución.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/act5-cypress-ct.png" alt="test" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>En el caso de que alguna de las pruebas falle, se aportará la información correspondiente. Por ejemplo, en el siguiente caso, el título del componente no coincide con el título esperado:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/act5-cypress-ct-fail.png" alt="test-fail" width="450">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uso_de_cypress_para_la_ejecución_de_pruebas_e2e">4. Uso de Cypress para la ejecución de pruebas E2E</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cypress es una herramienta de pruebas E2E que permite la ejecución de pruebas en un navegador. Para ello, se debe instalar la dependencia en el proyecto:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ npm install --save-dev cypress</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez instalada, se puede ejecutar la herramienta con el siguiente comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ npx cypress open</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En la ventana de configuración que se abre, seleccinaremos la opción <code>E2E testing</code>. Se nos mostrará una lista de los archivos de configuración de Cypress que existen en el proyecto. Seleccionamos <code>Continue</code> y en la siguiente ventana podemos seleccionar el navegador en el que se ejecutarán las pruebas. Una vez seleccionado, podemos crear las pruebas E2E que deseemos. En nuestro caso, crearemos un archivo <code>tests.spec.cy.ts</code> en el directorio <code>cypress/e2e</code> con el siguiente contenido:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>cypress/e2e/tests.spec.cy.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">describe('Home Tests', () =&gt; { <i class="conum" data-value="1"></i><b>(1)</b>
+
+  beforeEach(() =&gt; { <i class="conum" data-value="2"></i><b>(2)</b>
+    cy.visit('/');
+  });
+
+  it('the navigation to the new page sends the word', () =&gt; { <i class="conum" data-value="3"></i><b>(3)</b>
+
+    cy.get('#item-input-text &gt; ion-input').invoke('val', ''); <i class="conum" data-value="4"></i><b>(4)</b>
+    cy.get('#item-input-text').type('test text'); <i class="conum" data-value="5"></i><b>(5)</b>
+    cy.get('#button-new-page').click(); <i class="conum" data-value="6"></i><b>(6)</b>
+    cy.get('#label-word').contains('test text'); <i class="conum" data-value="7"></i><b>(7)</b>
+
+  });
+});</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Definición de una colección de pruebas</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Ejecutar antes de comenzar las pruebas: navegar a <code>/</code>, que nos redirige a <code>/home</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Creación de una prueba</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>P.1. Limpiar el campo de texto</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>P.2. Introducir una cadena en el campo de texto</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>P.3. Hacer clic en el botón que lleva a la nueva página</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>P.4. Comprobación del texto de la etiqueta en la nueva página</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para poder ejecutar las pruebas de la aplicación Ionic con Cypress, debemos establecer la URL base de la aplicación en el archivo <code>cypress.config.ts</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Archivo <code>cypress.config.ts</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { defineConfig } from "cypress";
+
+export default defineConfig({
+  e2e: {
+    baseUrl: 'http://localhost:8100', <i class="conum" data-value="1"></i><b>(1)</b>
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    },
+  },
+});</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>URL base de la aplicación</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para ejecutar las pruebas E2E con Cypress, debemos ejecutar el archivo de pruebas (<code>spec</code>) creado haciendo clic en él en la ventana de Cypress. Como resultado, se abrirá el navegador para llevar a cabo la interacción implementada. Al finalizar la realización de las pruebas, se nos mostrará un resumen de la ejecución.</p>
+</div>
+<div class="paragraph">
+<p>Para que esta prueba de ejemplo funcione correctamente, debemos crear una nueva página a la que se redirija el botón de la página <code>home</code> y que muestre el texto que se le pasa como parámetro. Para ello, crearemos un nuevo componente llamado <code>new-page</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ion-button id="button-new-page" [routerLink]="['/new-page', word]"&gt;Go to new page&lt;/ion-button&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Modificaremos, además, la descripción del enrutado en <code>app.routes.ts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">{
+  path: 'new-page/:word',
+  loadComponent: () =&gt; import('./new-page/new-page.page').then( m =&gt; m.NewPagePage)
+},</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En la nueva página, añadiremos un texto de ejemplo y un botón para volver atrás:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">  &lt;ion-toolbar&gt;
+    &lt;ion-title&gt;new-page&lt;/ion-title&gt;
+    &lt;ion-buttons slot="start"&gt;
+      &lt;ion-back-button&gt;&lt;/ion-back-button&gt;
+    &lt;/ion-buttons&gt;
+  &lt;/ion-toolbar&gt;
+...
+&lt;ion-item&gt;
+  &lt;ion-label id="label-word"&gt;The word is: {{word}} &lt;/ion-label&gt;
+&lt;/ion-item&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Teniendo en cuenta que para ello debemos modificar también la definición de dicho componente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ts" data-lang="ts">import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-new-page',
+  templateUrl: './new-page.page.html',
+  styleUrls: ['./new-page.page.scss'],
+  standalone: true,
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonLabel, IonItem, IonBackButton, IonButtons]
+})
+export class NewPagePage implements OnInit {
+
+  public word : string | null = "(no word)";
+
+  constructor(private activateRoute: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.word = this.activateRoute.snapshot.paramMap.get("word");
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Las pruebas que realizaremos consistirán en la comprobación de que la navegación desde la página <code>home</code> hacia la nueva página se realiza de forma correcta.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ejercicio_realización_de_pruebas_unitarias_y_e2e_en_una_aplicación_ionic">5. Ejercicio: Realización de pruebas unitarias y E2E en una aplicación Ionic</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se debe crear un nuevo proyecto Ionic que contenga la funcionalidad de la Actividad 1 (ver <a href="https://dah.github.io/act1.html">enlace</a>). En dicho proyecto, se deben añadir las pruebas unitarias y E2E necesarias para comprobar la funcionalidad descrita.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2025-03-26 00:24:30 +0100
+</div>
+</div>
+</body>
+</html>
